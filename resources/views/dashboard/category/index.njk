@@ -1,0 +1,74 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Categories' %}
+{% set active_menu = 'categories' %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title">Categories</h1>
+          </div>
+
+          <div class="level-right">
+            <div class="field is-grouped">
+              <p class="control">
+                <a href="{{ route('dashboard.categories.add') }}" class="button is-primary">
+                  <span class="icon is-small">
+                    <i class="fa fa-plus"></i>
+                  </span>
+
+                  <span>Add Category</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container is-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th class="is-fit">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for category in result.toJSON() %}
+          <tr>
+            <td>{{ category.name }}</td>
+            <td>
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="{{ route('dashboard.categories.edit', { id: category.id }) }}" class="button is-primary is-small is-inverted">
+                    <span class="icon is-small">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </a>
+                </p>
+
+                <p class="control">
+                  <a href="{{ route('dashboard.categories.delete', { id: category.id }) }}" class="button is-danger is-small is-inverted">
+                    <span class="icon is-small">
+                      <i class="fa fa-times"></i>
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="3">No results found</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

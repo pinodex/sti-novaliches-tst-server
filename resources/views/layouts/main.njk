@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <!--
+    ╭──────────────────────────────────────────╮
+    │        Front-end & Back-end Dev't        │
+    ╞══════════════════════════════════════════╡
+    │             RAPHAEL MARCO                │
+    │                                          │
+    │           pinodex.github.io              │
+    │        raphaelmarco@outlook.com          │
+    ╰──────────────────────────────────────────╯
+  -->
+  <meta name="csrf-token" value="{{ csrfToken }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>{{ page_title }} - STI College Novaliches</title>
+  <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/bulma.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/main.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/font-awesome.css') }}" />
+</head>
+<body class="{{ body_class }}">
+  <div id="app">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block scripts %}{% endblock %}
+
+  <script src="{{ mix('/assets/js/manifest.js') }}"></script>
+  <script src="{{ mix('/assets/js/vendor.js') }}"></script>
+  <script src="{{ mix('/assets/js/app.js') }}"></script>
+</body>
+</html>

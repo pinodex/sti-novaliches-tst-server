@@ -1,0 +1,78 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Criterias' %}
+{% set active_menu = 'criterias' %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title">Criterias</h1>
+          </div>
+
+          <div class="level-right">
+            <div class="field is-grouped">
+              <p class="control">
+                <a href="{{ route('dashboard.criterias.add') }}" class="button is-primary">
+                  <span class="icon is-small">
+                    <i class="fa fa-plus"></i>
+                  </span>
+
+                  <span>Add Criteria</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container is-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Percentage</th>
+          <th>Minimum Value</th>
+          <th class="is-fit">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for criteria in result.toJSON() %}
+          <tr>
+            <td>{{ criteria.name }}</td>
+            <td>{{ criteria.percentage * 100 }}%</td>
+            <td>{{ criteria.minimum_value }}</td>
+            <td>
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="{{ route('dashboard.criterias.edit', { id: criteria.id }) }}" class="button is-primary is-small is-inverted">
+                    <span class="icon is-small">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </a>
+                </p>
+
+                <p class="control">
+                  <a href="{{ route('dashboard.criterias.delete', { id: criteria.id }) }}" class="button is-danger is-small is-inverted">
+                    <span class="icon is-small">
+                      <i class="fa fa-times"></i>
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="3">No results found</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
