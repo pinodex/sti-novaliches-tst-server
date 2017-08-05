@@ -9,7 +9,6 @@ import Buefy from 'buefy'
 import axios from 'axios'
 
 import io from 'adonis-websocket-client'
-import qs from 'qs'
 
 import methods from './methods.js'
 

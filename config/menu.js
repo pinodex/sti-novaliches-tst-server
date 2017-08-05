@@ -45,6 +45,13 @@ module.exports = [
         route: 'dashboard.judges',
         name: 'Judges'
       },
+
+      {
+        icon: 'plug',
+        identifier: 'connections',
+        route: 'dashboard.connections',
+        name: 'Connections'
+      }
     ]
   }
 ]

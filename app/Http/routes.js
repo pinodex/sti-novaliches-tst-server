@@ -168,3 +168,50 @@ Route.group('dashboard.judges', () => {
 })
 .prefix('dashboard/judges')
 .middleware('auth:account')
+
+/**
+ * Connections
+ */
+Route.group('dashboard.connections', () => {
+
+  Route
+    .get('/', 'Dashboard/ConnectionController.index')
+    .as('dashboard.connections')
+
+})
+.prefix('dashboard/connections')
+.middleware('auth:account')
+
+/**
+ * Connections - Categories
+ */
+Route.group('dashboard.connections.candidates', () => {
+
+  Route
+    .get('/', 'Dashboard/Connection/CandidatesController.index')
+    .as('dashboard.connections.candidates')
+
+  Route
+    .route('/:id',  ['GET', 'POST'], 'Dashboard/Connection/CandidatesController.edit')
+    .as('dashboard.connections.candidates.edit')
+
+})
+.prefix('dashboard/connections/candidates')
+.middleware('auth:account')
+
+/**
+ * Criterias - Categories
+ */
+Route.group('dashboard.connections.criterias', () => {
+
+  Route
+    .get('/', 'Dashboard/Connection/CriteriasController.index')
+    .as('dashboard.connections.criterias')
+
+  Route
+    .route('/:id',  ['GET', 'POST'], 'Dashboard/Connection/CriteriasController.edit')
+    .as('dashboard.connections.criterias.edit')
+
+})
+.prefix('dashboard/connections/criterias')
+.middleware('auth:account')

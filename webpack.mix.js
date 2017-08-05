@@ -25,7 +25,7 @@ mix
   .copy('resources/assets/img', 'public/assets/img')
   .copy('node_modules/font-awesome/fonts', 'public/assets/fonts')
 
-  .extract(['vue', 'buefy', 'axios', 'adonis-websocket-client', 'qs'])
+  .extract(['vue', 'buefy', 'axios', 'adonis-websocket-client'])
 
   .disableNotifications()
   .setPublicPath('public')

@@ -1,0 +1,31 @@
+{% extends '../index' %}
+
+{% set subpage_title = 'Candidates' %}
+{% set active_submenu = 'candidates' %}
+
+{% block framecontent %}
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column is-4">
+        <h2 class="subtitle">Categories</h2>
+
+        <aside class="menu">
+          <ul class="menu-list">
+            {% for category in categories.toJSON() %}
+              <li>
+                <a href="{{ route('dashboard.connections.candidates.edit', { id: category.id }) }}">
+                  {{ category.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column">
+        <h2 class="subtitle">Candidates</h2>
+        <p>Select category</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

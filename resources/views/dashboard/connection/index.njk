@@ -1,0 +1,70 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = subpage_title ~ ' - Connections' %}
+{% set active_menu = 'connections' %}
+
+{%
+
+  set submenu = [
+    {
+      icon: 'male',
+      identifier: 'candidates',
+      name: 'Candidates',
+      route: 'dashboard.connections.candidates'
+    },
+
+    {
+      icon: 'list',
+      identifier: 'criterias',
+      name: 'Criterias',
+      route: 'dashboard.connections.criterias'
+    }
+  ]
+
+%}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body has-tabs">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title">Connections</h1>
+          </div>
+
+          <div class="level-right"></div>
+        </div>
+
+        <div class="tabs is-boxed is-blend">
+          <ul>
+            {% for item in submenu %}
+              {% if active_submenu == item.identifier %}
+                <li class="is-active">
+                  <a href="{{ route(item.route) }}">
+                    <span class="icon is-small">
+                      <i class="fa fa-{{ item.icon }}"></i>
+                    </span>
+
+                    <span>{{ item.name }}</span>
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ route(item.route) }}">
+                    <span class="icon is-small">
+                      <i class="fa fa-{{ item.icon }}"></i>
+                    </span>
+
+                    <span>{{ item.name }}</span>
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% block framecontent %}{% endblock %}
+{% endblock %}

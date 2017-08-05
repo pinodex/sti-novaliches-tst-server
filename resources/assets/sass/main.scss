@@ -87,11 +87,11 @@ body {
 }
 
 .select.is-multiple {
-  height: 150px;
+  height: 250px;
   width: 100%;
 
   select {
-    height: 150px;
+    height: 250px;
     width: 100%;
   }
 
@@ -292,6 +292,21 @@ body {
 
 .is-fit {
   width: 1px;
+}
+
+.hero-body.has-tabs {
+    padding-bottom: 0;
+}
+
+.hero.is-light {
+    .tabs.is-boxed.is-blend {
+        li.is-active a,
+        li.is-active a:hover {
+            background: #f6f9fc;
+            border-color: #f6f9fc;
+            color: #363636;
+        }
+    }
 }
 
 /**

@@ -35,6 +35,10 @@ class Criteria extends Lucid {
   static get updateTimestamp () {
     return null
   }
+
+  categories () {
+    return this.belongsToMany('App/Model/Category', 'category_criterias')
+  }
 }
 
 module.exports = Criteria
