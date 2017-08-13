@@ -15,3 +15,6 @@
 */
 
 const Ws = use('Ws')
+
+Ws.channel('root', 'MainController')
+Ws.channel('data', 'DataController')

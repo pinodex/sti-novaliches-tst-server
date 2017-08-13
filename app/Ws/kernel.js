@@ -38,3 +38,7 @@ const namedMiddleware = {
 */
 Ws.global(globalMiddleware)
 Ws.named(namedMiddleware)
+
+Ws.io.set('transports', ['websocket'])
+Ws.io.set('heartbeat timeout', 60000)
+Ws.io.set('heartbeat interval', 25000)

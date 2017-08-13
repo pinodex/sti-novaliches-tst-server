@@ -8,21 +8,14 @@ import Vue from 'vue'
 import Buefy from 'buefy'
 import axios from 'axios'
 
-import io from 'adonis-websocket-client'
+import ws from 'adonis-websocket-client'
 
 import methods from './methods.js'
-
-require('./array-find-polyfill')
-require('./array-findindex-polyfill')
 
 const csrfMetaElement = document.querySelector('meta[name="csrf-token"]')
 
 if (csrfMetaElement) {
   axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfMetaElement.getAttribute('value')
-}
-
-const Ws = (Vue, url, options) => {
-  Vue.prototype.$io = io(url, options)
 }
 
 Vue.directive('focus', {
@@ -35,69 +28,15 @@ Vue.use(Buefy, {
   defaultIconPack: 'fa'
 })
 
-Vue.use(Ws, window.location.origin, {})
+Vue.io = Vue.prototype.$io = ws(location.origin, {
+  transports: ['websocket'],
+  upgrade: false
+})
 
 let app = new Vue({
   el: '#app',
 
-  mounted: function () {
-    if ('user' in window && window.user) {
-      this.ui.modal.showLoginPrompt = false
-      this.user = user
-    }
-
-    if ('categories' in window && window.categories) {
-      this.categories = categories
-    }
-
-    if ('candidates' in window && window.candidates) {
-      this.candidates = candidates
-    }
-
-    if ('connect' in window && window.connect) {
-      this.$client = this.$io.channel('result')
-
-      this.$client.connect((error, connected) => {
-        if (error) {
-          this.ws.connected = false
-
-          this.$snackbar.open({
-            message: 'Cannot connect to server. Live vote count will not work.',
-            type: 'is-danger',
-            duration: 5000
-          })
-
-          return
-        }
-
-        if (connected) {
-          this.ws.connected = true
-        }
-      })
-
-      this.$client.on('candidates', data => {
-        this.candidates = data
-      })
-
-      this.$client.on('candidate.voted', id => {
-        let index = this.candidates.findIndex(candidate => candidate.id == id)
-
-        if (index > -1) {
-          this.candidates[index].votes++
-        }
-      })
-
-      this.$client.on('categories.update', data => {
-        this.categories = data
-      })
-
-      this.$client.on('candidates.update', data => {
-        this.candidates = data
-      })
-    }
-  },
-
-  data: function () {
+  data () {
     return {
       ui: {
         nav: {
@@ -114,19 +53,10 @@ let app = new Vue({
         }
       },
 
-      user: null,
-
-      categories: [],
-      candidates: [],
-
       form: {
         disabled: false,
         errors: false,
         image: null
-      },
-
-      ws: {
-        connected: true
       }
     }
   },
@@ -147,4 +77,8 @@ if (pageSelector) {
 
     window.location = `${location.pathname}?${query}`
   }, false)
+}
+
+if (location.pathname.indexOf('/program') == 0) {
+
 }

@@ -1,6 +1,6 @@
-{% extends '../../layouts/dashboard' %}
+{% extends '../../../layouts/dashboard' %}
 
-{% set page_title = 'Categories' %}
+{% set page_title = 'Stages' %}
 {% set active_menu = 'categories' %}
 
 {% block subcontent %}
@@ -9,18 +9,21 @@
       <div class="container is-fluid">
         <div class="level">
           <div class="level-left">
-            <h1 class="title">Categories</h1>
+            <div>
+              <h1 class="title">Category Stages</h1>
+              <h2 class="subtitle">{{ category.name }}</h2>
+            </div>
           </div>
 
           <div class="level-right">
             <div class="field is-grouped">
               <p class="control">
-                <a href="{{ route('dashboard.categories.add') }}" class="button is-primary">
+                <a href="{{ route('dashboard.categories.stages.add', { category_id: category.id }) }}" class="button is-primary">
                   <span class="icon is-small">
                     <i class="fa fa-plus"></i>
                   </span>
 
-                  <span>Add Category</span>
+                  <span>Add Stage</span>
                 </a>
               </p>
             </div>
@@ -34,27 +37,21 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Name</th>
           <th class="is-fit">Actions</th>
         </tr>
       </thead>
 
       <tbody>
-        {% for category in result.toJSON() %}
+        {% for stage in result.toJSON() %}
           <tr>
-            <td>{{ category.name }}</td>
+            <td class="is-fit">{{ stage.level }}</td>
+            <td>{{ stage.name }}</td>
             <td>
               <div class="field is-grouped">
                 <p class="control">
-                  <a href="{{ route('dashboard.categories.stages', { category_id: category.id }) }}" class="button is-dark is-small is-inverted" title="Stages">
-                    <span class="icon is-small">
-                      <i class="fa fa-sitemap"></i>
-                    </span>
-                  </a>
-                </p>
-
-                <p class="control">
-                  <a href="{{ route('dashboard.categories.edit', { id: category.id }) }}" class="button is-primary is-small is-inverted">
+                  <a href="{{ route('dashboard.categories.stages.edit', { category_id: category.id, id: stage.id }) }}" class="button is-primary is-small is-inverted">
                     <span class="icon is-small">
                       <i class="fa fa-pencil"></i>
                     </span>
@@ -62,7 +59,7 @@
                 </p>
 
                 <p class="control">
-                  <a href="{{ route('dashboard.categories.delete', { id: category.id }) }}" class="button is-danger is-small is-inverted">
+                  <a href="{{ route('dashboard.categories.stages.delete', { category_id: category.id, id: stage.id }) }}" class="button is-danger is-small is-inverted">
                     <span class="icon is-small">
                       <i class="fa fa-times"></i>
                     </span>

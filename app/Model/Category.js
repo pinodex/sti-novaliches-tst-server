@@ -37,6 +37,10 @@ class Category extends Lucid {
     return this.belongsToMany('App/Model/Criteria', 'category_criterias', 'category_id', 'criteria_id')
   }
 
+  stages () {
+    return this.hasMany('App/Model/Stage')
+  }
+
   getIsActive(value) {
     return value == 1
   }

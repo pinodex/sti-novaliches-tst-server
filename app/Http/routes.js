@@ -91,6 +91,31 @@ Route.group('dashboard.categories', () => {
 .middleware('auth:account')
 
 /**
+ * Categories stages
+ */
+Route.group('dashboard.categories.stages', () => {
+
+  Route
+    .get(':category_id/stages', 'Dashboard/CategoryStageController.index')
+    .as('dashboard.categories.stages')
+
+  Route
+    .route(':category_id/stages/add', ['GET', 'POST'], 'Dashboard/CategoryStageController.edit')
+    .as('dashboard.categories.stages.add')
+
+  Route
+    .route(':category_id/stages/:id/edit', ['GET', 'POST'], 'Dashboard/CategoryStageController.edit')
+    .as('dashboard.categories.stages.edit')
+
+  Route
+    .route(':category_id/stages/:id/delete', ['GET', 'POST'], 'Dashboard/CategoryStageController.delete')
+    .as('dashboard.categories.stages.delete')
+
+})
+.prefix('dashboard/categories')
+.middleware('auth:account')
+
+/**
  * Candidates
  */
 Route.group('dashboard.candidates', () => {
@@ -215,3 +240,28 @@ Route.group('dashboard.connections.criterias', () => {
 })
 .prefix('dashboard/connections/criterias')
 .middleware('auth:account')
+
+/**
+ * API routes
+ */
+Route.group('api', () => {
+
+  Route
+    .post('/request/:event', 'Api/RequestController.invoke')
+    .as('api.request')
+
+})
+.prefix('api')
+
+Route.group('api.auth', () => {
+
+  Route
+    .post('/login', 'Api/AuthController.login')
+    .as('api.login')
+
+  Route
+    .post('/logout', 'Api/AuthController.logout')
+    .as('api.logout')
+
+})
+.prefix('api/auth')

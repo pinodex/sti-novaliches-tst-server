@@ -27,7 +27,7 @@ class CandidateController {
    * Candidate edit page
    */
   * edit (request, response) {
-    const id = request.input('id')
+    const id = request.param('id')
     let model = new Candidate()
 
     if (id) {

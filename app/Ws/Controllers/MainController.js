@@ -8,9 +8,11 @@
  */
 
 class MainController {
-  * index (request, response) {
-    yield response.sendView('index')
+
+  constructor (socket) {
+    this.socket = socket
   }
+
 }
 
 module.exports = MainController

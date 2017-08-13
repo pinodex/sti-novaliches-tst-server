@@ -25,11 +25,5 @@ module.exports = {
     scheme: 'session',
     uid: 'username',
     password: 'password'
-  },
-
-  user: {
-    serializer: 'Lucid',
-    model: 'App/Model/User',
-    scheme: 'social'
   }
 }

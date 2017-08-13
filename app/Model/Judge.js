@@ -7,7 +7,9 @@
  * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
  */
 
-const Lucid = use('Lucid')
+const Lucid = use('Lucid'),
+      Hash = use('Hash'),
+      crypto = require('crypto')
 
 class Judge extends Lucid {
   static boot () {
@@ -17,6 +19,10 @@ class Judge extends Lucid {
     this.addHook('beforeUpdate', 'Account.encryptPassword')
 
     this.addHook('beforeCreate', 'Uuid.setId')
+  }
+
+  static get hidden () {
+    return ['password', 'created_at', 'updated_at']
   }
 
   static rules (id) {
@@ -37,6 +43,46 @@ class Judge extends Lucid {
       'password_confirm.required_if': 'Password confirmation field cannot be empty',
       'password_confirm.same': 'Password confirmation does not match'
     }
+  }
+
+  static * getByCredentials (username, password) {
+    const judge = yield this.query().where('username', username).first()
+
+    if (!judge) {
+      return null
+    }
+
+    const isPasswordCorrect = yield Hash.verify(password, judge.password)
+
+    if (!isPasswordCorrect) {
+      return null
+    }
+
+    return judge
+  }
+
+  static * getByToken (username, token) {
+    const judge = yield this.query()
+      .where('username', username)
+      .where('token', token)
+      .first()
+
+    return judge
+  }
+
+  * generateToken() {
+    const buffer = crypto.randomBytes(64),
+          token = buffer.toString('hex')
+
+    this.token = token
+
+    return token
+  }
+
+  * invalidateToken () {
+    this.token = null
+
+    return this
   }
 }
 
