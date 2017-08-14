@@ -3,7 +3,7 @@
 {% set subpage_title = 'Candidates' %}
 {% set active_submenu = 'candidates' %}
 
-{% set formUrl = url('dashboard.connections.categories.edit', { id: model.id }) %}
+{% set formUrl = url('dashboard.connections.candidates.edit', { id: model.id }) %}
 
 {% block framecontent %}
   <div class="container is-fluid">
@@ -43,9 +43,41 @@
                 <select name="candidates" multiple>
                   {% for candidate in mappedCandidates %}
                     {% if candidate.is_selected %}
-                      <option value="{{ candidate.id }}" selected>{{ candidate.name }}</option>
+                      <option value="{{ candidate.id }}" selected>
+                        {{ candidate.name }}
+
+                        {% if candidate.categories.length > 0 %}
+                          (
+
+                          {% for category in candidate.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < candidate.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
                     {% else %}
-                      <option value="{{ candidate.id }}">{{ candidate.name }}</option>
+                      <option value="{{ candidate.id }}">
+                        {{ candidate.name }}
+
+                        {% if candidate.categories.length > 0 %}
+                          (
+
+                          {% for category in candidate.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < candidate.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
                     {% endif %}
                   {% endfor %}
                 </select>

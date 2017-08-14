@@ -9,7 +9,7 @@
 
 const co = require('co'),
       Event = use('Event'),
-      Categories = use('App/Components/Transformer/Categories')
+      Aggregator = use('App/Components/Aggregator')
 
 class DataController {
 
@@ -22,7 +22,7 @@ class DataController {
 
     Event.when('send_categories', () => {
       co(function * () {
-        const categories = yield Categories.get()
+        const categories = yield Aggregator.getCategories()
 
         return categories
       }.bind(this)).then(categories => {

@@ -14,8 +14,8 @@
   <section class="hero is-light has-contents-below">
     <div class="hero-body">
       <div class="container is-fluid">
-        <div class="level">
-          <div class="level-left">
+        <div class="order">
+          <div class="order-left">
             {% if model.id %}
               <h1 class="title">Edit Criteria</h1>
             {% else %}
@@ -23,7 +23,7 @@
             {% endif %}
           </div>
 
-          <div class="level-right">
+          <div class="order-right">
 
           </div>
         </div>
@@ -71,6 +71,13 @@
               <label class="label">Minimum Value</label>
               <div class="control">
                 <input class="input" type="number" name="minimum_value" min="0" max="100" value="{{ old('minimum_value', model.minimum_value) }}" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Order</label>
+              <div class="control">
+                <input class="input" type="number" name="order" value="{{ old('order', model.order) }}" required />
               </div>
             </div>
 

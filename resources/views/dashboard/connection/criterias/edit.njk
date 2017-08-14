@@ -8,7 +8,7 @@
 {% block framecontent %}
   <div class="container is-fluid">
     <div class="columns">
-      <div class="column is-4">
+      <div class="column is-3">
         <h2 class="subtitle">Categories</h2>
 
         <aside class="menu">
@@ -43,9 +43,41 @@
                 <select name="criterias" multiple>
                   {% for criteria in mappedCriterias %}
                     {% if criteria.is_selected %}
-                      <option value="{{ criteria.id }}" selected>{{ criteria.name }} ({{ criteria.percentage * 100 }}%)</option>
+                      <option value="{{ criteria.id }}" selected>
+                        {{ criteria.name }} - {{ criteria.percentage }}%
+
+                        {% if criteria.categories.length > 0 %}
+                          (
+
+                          {% for category in criteria.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < criteria.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
                     {% else %}
-                      <option value="{{ criteria.id }}">{{ criteria.name }} ({{ criteria.percentage * 100 }}%)</option>
+                      <option value="{{ criteria.id }}">
+                        {{ criteria.name }} - {{ criteria.percentage }}%
+
+                        {% if criteria.categories.length > 0 %}
+                          (
+
+                          {% for category in criteria.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < criteria.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
                     {% endif %}
                   {% endfor %}
                 </select>

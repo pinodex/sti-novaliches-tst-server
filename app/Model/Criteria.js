@@ -17,8 +17,9 @@ class Criteria extends Lucid {
     return {
       name: 'required',
       description: 'required',
-      percentage: 'required|range:0,100',
-      minimum_value: 'required|range:0,100'
+      percentage: 'required|range:0,101',
+      minimum_value: 'required|range:0,100',
+      order: 'required|range:0,1000'
     }
   }
 
@@ -37,7 +38,15 @@ class Criteria extends Lucid {
   }
 
   categories () {
-    return this.belongsToMany('App/Model/Category', 'category_criterias')
+    return this.belongsToMany('App/Model/Category', 'category_criterias', 'criteria_id', 'category_id')
+  }
+
+  getPercentage (value) {
+    return value * 100
+  }
+
+  setPercentage (value) {
+    return value / 100
   }
 }
 

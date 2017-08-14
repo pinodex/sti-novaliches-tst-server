@@ -33,8 +33,26 @@ Vue.io = Vue.prototype.$io = ws(location.origin, {
   upgrade: false
 })
 
+Vue.http = Vue.prototype.$http = axios.create({
+  baseURL: location.origin
+})
+
 let app = new Vue({
   el: '#app',
+
+  mounted () {
+    if ('program' in window) {
+      for (let key in window.program) {
+        this.program[key] = window.program[key]
+      }
+
+      let activeCategory = this.program.categories.find(category => category.is_active)
+
+      if (activeCategory) {
+        this.program.active_category = activeCategory.id
+      }
+    }
+  },
 
   data () {
     return {
@@ -50,6 +68,10 @@ let app = new Vue({
         button: {
           fbLoginDisabled: false,
           quickPostLoading: false
+        },
+
+        program: {
+          control_disabled: false
         }
       },
 
@@ -57,6 +79,26 @@ let app = new Vue({
         disabled: false,
         errors: false,
         image: null
+      },
+
+      program: {
+        active_category: null,
+        active_stage: null,
+
+        categories: [],
+        stages: []
+      }
+    }
+  },
+
+  watch: {
+    'program.active_category': function () {
+      let activeStage = this.program.stages.find(stage => {
+        return stage.category_id == this.program.active_category && stage.is_active
+      })
+
+      if (activeStage) {
+        this.program.active_stage = activeStage.id
       }
     }
   },

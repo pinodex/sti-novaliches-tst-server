@@ -9,16 +9,20 @@
 
 const Category = use('App/Model/Category')
 
-class Categories {
+class Aggregator {
 
-  static * get () {
-    const categories = yield Category.all()
+  static * getCategories () {
+    const categories = yield Category.query()
+      .with('stages', 'criterias')
+      .orderBy('order', 'ASC')
+      .fetch()
+
     let output = []
 
     categories.each(category => {
       let item = category.toJSON()
 
-      item.is_active = false
+      item.stages = item.stages.sort((a, b) => a.level - b.level)
 
       output.push(item)
     })
@@ -28,4 +32,4 @@ class Categories {
 
 }
 
-module.exports = Categories
+module.exports = Aggregator

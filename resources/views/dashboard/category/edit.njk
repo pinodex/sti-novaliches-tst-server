@@ -54,6 +54,13 @@
             </div>
 
             <div class="field">
+              <label class="label">Order</label>
+              <div class="control">
+                <input class="input" type="number" name="order" value="{{ old('order', model.order) }}" required />
+              </div>
+            </div>
+
+            <div class="field">
               <p class="control is-clearfix">
                 <button class="button is-primary is-pulled-right">
                   <span class="icon is-small">

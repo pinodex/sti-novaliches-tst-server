@@ -34,6 +34,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th></th>
           <th>Name</th>
           <th>Percentage</th>
           <th>Minimum Value</th>
@@ -44,8 +45,9 @@
       <tbody>
         {% for criteria in result.toJSON() %}
           <tr>
+            <td class="is-fit">{{ criteria.order }}</td>
             <td>{{ criteria.name }}</td>
-            <td>{{ criteria.percentage * 100 }}%</td>
+            <td>{{ criteria.percentage }}%</td>
             <td>{{ criteria.minimum_value }}</td>
             <td>
               <div class="field is-grouped">

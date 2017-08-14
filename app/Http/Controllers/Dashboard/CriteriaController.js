@@ -41,7 +41,7 @@ class CriteriaController {
     }
 
     if (request.method() == 'POST') {
-      const data = request.only(['name', 'description', 'percentage', 'minimum_value']),
+      const data = request.only(['name', 'description', 'percentage', 'minimum_value', 'order']),
             validation = yield Helpers.validateModel(Criteria, data, data.id)
 
       if (validation.fails()) {
@@ -53,8 +53,6 @@ class CriteriaController {
 
         return response.route('dashboard.criterias.add')
       }
-
-      data['percentage'] = Number(data['percentage']) / 100
 
       model.fill(data)
 

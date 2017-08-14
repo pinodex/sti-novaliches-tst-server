@@ -28,7 +28,9 @@ class CandidatesController {
    */
   * edit (request, response) {
     const categories = yield Category.all(),
-          candidates = yield Candidate.all()
+          candidates = yield Candidate.query()
+            .with('categories')
+            .fetch()
 
     const model = yield Category.query()
       .with('candidates')
@@ -36,7 +38,7 @@ class CandidatesController {
       .first()
 
     if (!model) {
-      return response.route('dashboard.connections.categories')
+      return response.route('dashboard.connections.candidates')
     }
 
     let mappedCandidates = []
@@ -64,7 +66,7 @@ class CandidatesController {
 
       yield request.with({ success: `Changes to ${model.name} has been saved` }).flash()
 
-      return response.route('dashboard.connections.categories.edit', {
+      return response.route('dashboard.connections.candidates.edit', {
         id: model.id
       })
     }

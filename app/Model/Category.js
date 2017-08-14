@@ -11,7 +11,8 @@ class Category extends Lucid {
 
   static rules (id) {
     return {
-      name: 'required'
+      name: 'required',
+      order: 'required|range:0,1000'
     }
   }
 
@@ -43,6 +44,23 @@ class Category extends Lucid {
 
   getIsActive(value) {
     return value == 1
+  }
+
+  static * setActive(id) {
+    if (id == null) {
+      yield Category.query().update({ is_active: 0 })
+
+      return true
+    }
+
+    const model = yield Category.findOrFail(id)
+
+    model.is_active = true
+
+    yield Category.query().update({ is_active: false })
+    yield model.save()
+
+    return true
   }
 }
 

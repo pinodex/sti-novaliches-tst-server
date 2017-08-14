@@ -8,15 +8,15 @@ import axios from 'axios'
 
 export default {
 
-  toggleSideBar: function () {
+  toggleSideBar () {
     this.ui.nav.sideBarActive = !this.ui.nav.sideBarActive
   },
 
-  closeOverlays: function () {
+  closeOverlays () {
     this.ui.nav.sideBarActive = false
   },
 
-  previewImage: function (e) {
+  previewImage (e) {
     const input = e.target
 
     if (input.files && input.files[0]) {
@@ -28,6 +28,34 @@ export default {
 
       reader.readAsDataURL(input.files[0])
     }
+  },
+
+  updateCurrentProgram () {
+    this.ui.program.control_disabled = true
+
+    this.$http
+      .post('/dashboard/program/category', {
+        category_id: this.program.active_category,
+        stage_id: this.program.active_stage
+      })
+      .then(response => {
+        this.ui.program.control_disabled = false
+
+        this.$toast.open({
+          message: 'Current program updated',
+          type: 'is-success'
+        })
+      })
+      .catch(error => {
+        let message = error.response.data.error.message || error.message
+
+        this.$dialog.alert({ message,
+          title: 'Error',
+          type: 'is-danger'
+        })
+
+        this.ui.program.control_disabled = false
+      })
   }
 
 }

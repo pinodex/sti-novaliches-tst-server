@@ -242,6 +242,19 @@ Route.group('dashboard.connections.criterias', () => {
 .middleware('auth:account')
 
 /**
+ * Program
+ */
+Route.group('dashboard.program', () => {
+
+  Route
+    .post('category', 'Dashboard/ProgramController.category')
+    .as('dashboard.program.category')
+
+})
+.prefix('dashboard/program')
+.middleware('auth:account')
+
+/**
  * API routes
  */
 Route.group('api', () => {

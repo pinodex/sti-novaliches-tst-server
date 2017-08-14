@@ -6,5 +6,91 @@
 {% set error = old('error') %}
 
 {% block subcontent %}
+  <section class="hero is-primary is-bold has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <h1 class="title">Overview</h1>
 
+        <div class="columns">
+          <div class="column is-3">
+            <div class="panel is-transparent">
+              <p class="panel-heading">Current category</p>
+
+              <div class="panel-block">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column">
+        <div class="box">
+          <form @submit.prevent="updateCurrentProgram">
+            <div class="field">
+              <label class="label">Active Category</label>
+
+              <p class="control is-expanded">
+                <span class="select is-fullwidth">
+                  <select name="active_category" v-model="program.active_category">
+                    <option value="none">None</option>
+
+                    <option v-for="category in program.categories" :value="category.id">
+                        {{ '{{ category.name }}' }}
+                    </option>
+                  </select>
+                </span>
+              </p>
+            </div>
+
+
+            <div class="field">
+              <label class="label">Active Stage</label>
+
+              <p class="control is-expanded">
+                <span class="select is-fullwidth">
+                  <select name="active_category" v-model="program.active_stage" :disabled="!program.active_category">
+                    <option value="none">None</option>
+
+                    <option v-for="stage in program.stages"
+                            v-if="program.active_category == stage.category_id"
+                            :value="stage.id">
+
+                      {{ '{{ stage.name }}' }}
+                    </option>
+                  </select>
+                </span>
+              </p>
+            </div>
+
+            <p class="control has-text-right">
+              <button class="button is-primary" type="submit"
+                :class="{ 'is-loading': ui.program.control_disabled }"
+                :disabled="ui.program.control_disabled">
+
+                <span class="icon is-small">
+                  <i class="fa fa-save"></i>
+                </span>
+
+                <span>Update</span>
+              </button>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div class="column"></div>
+
+      <div class="column"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    var program = {{ program | json | safe }}
+  </script>
 {% endblock %}

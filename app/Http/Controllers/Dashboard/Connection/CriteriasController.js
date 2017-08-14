@@ -28,7 +28,7 @@ class CriteriasController {
    */
   * edit (request, response) {
     const categories = yield Category.all(),
-          criterias = yield Criteria.all()
+          criterias = yield Criteria.query().with('categories').fetch()
 
     const model = yield Category.query()
       .with('criterias')

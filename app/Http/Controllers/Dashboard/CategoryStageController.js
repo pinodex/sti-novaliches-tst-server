@@ -53,7 +53,7 @@ class CategoryStageController {
 
     if (request.method() == 'POST') {
       const data = request.only(['name', 'level']),
-            validation = yield Helpers.validateModel(Category, data, data.id)
+            validation = yield Helpers.validateModel(Stage, data, data.id)
 
       if (validation.fails()) {
         yield request.withAll().andWith({ errors: validation.messages() }).flash()

@@ -7,12 +7,22 @@
  * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
  */
 
+const Category = use('App/Model/Category'),
+      Stage = use('App/Model/Stage')
+
 class MainController {
   /**
    * Dashboard index page
    */
   * index (request, response) {
-    yield response.sendView('dashboard/index')
+    let program = {}
+
+    program.categories = yield Category.all()
+    program.stages = yield Stage.all()
+
+    yield response.sendView('dashboard/index', {
+      program
+    })
   }
 
   /**
