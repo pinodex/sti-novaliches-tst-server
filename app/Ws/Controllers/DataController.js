@@ -13,6 +13,13 @@ const co = require('co'),
 
 class DataController {
 
+  static get mappings () {
+    return {
+      categories: 'send_categories',
+      candidates: 'send_candidates'
+    }
+  }
+
   constructor (socket) {
     this.socket = socket
 
@@ -25,10 +32,46 @@ class DataController {
         const categories = yield Aggregator.getCategories()
 
         return categories
-      }.bind(this)).then(categories => {
+      }).then(categories => {
         this.socket.toEveryone().emit('categories', categories)
       })
     })
+
+    Event.when('send_candidates', () => {
+      co(function * () {
+        const candidates = yield Aggregator.getCandidates()
+
+        return candidates
+      }).then(candidates => {
+        this.socket.toEveryone().emit('candidates', candidates)
+      })
+    })
+  }
+
+  onRequest (name) {
+    switch (name) {
+      case 'categories':
+        co(function * () {
+          const categories = yield Aggregator.getCategories()
+
+          return categories
+        }).then(categories => {
+          this.socket.toMe().emit('categories', categories)
+        })
+
+        break;
+
+      case 'candidates':
+        co(function * () {
+          const candidates = yield Aggregator.getCandidates()
+
+          return candidates
+        }).then(candidates => {
+          this.socket.toMe().emit('candidates', candidates)
+        })
+
+        break;
+    }
   }
 
 }

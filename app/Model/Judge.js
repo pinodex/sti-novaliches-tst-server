@@ -70,6 +70,14 @@ class Judge extends Lucid {
     return judge
   }
 
+  static * checkToken (token) {
+    const judge = yield this.query()
+      .where('token', token)
+      .first()
+
+    return judge
+  }
+
   * generateToken() {
     const buffer = crypto.randomBytes(64),
           token = buffer.toString('hex')

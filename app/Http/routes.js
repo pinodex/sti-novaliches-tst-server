@@ -259,12 +259,13 @@ Route.group('dashboard.program', () => {
  */
 Route.group('api', () => {
 
-  Route
-    .post('/request/:event', 'Api/RequestController.invoke')
-    .as('api.request')
+  Route.get('/score', 'Api/ScoreController.get')
+
+  Route.post('/score', 'Api/ScoreController.post')
 
 })
 .prefix('api')
+.middleware('judge_token')
 
 Route.group('api.auth', () => {
 
