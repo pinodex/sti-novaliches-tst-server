@@ -91,6 +91,31 @@ Route.group('dashboard.categories', () => {
 .middleware('auth:account')
 
 /**
+ * Categories
+ */
+Route.group('dashboard.categories.sub', () => {
+
+  Route
+    .get(':id/subcategories', 'Dashboard/SubcategoryController.index')
+    .as('dashboard.categories.sub')
+
+  Route
+    .route(':id/subcategories/add', ['GET', 'POST'], 'Dashboard/SubcategoryController.edit')
+    .as('dashboard.categories.sub.add')
+
+  Route
+    .route(':id/subcategories/:sid/edit', ['GET', 'POST'], 'Dashboard/SubcategoryController.edit')
+    .as('dashboard.categories.sub.edit')
+
+  Route
+    .route(':id/subcategories/:sid/delete', ['GET', 'POST'], 'Dashboard/SubcategoryController.delete')
+    .as('dashboard.categories.sub.delete')
+
+})
+.prefix('dashboard/categories')
+.middleware('auth:account')
+
+/**
  * Candidates
  */
 Route.group('dashboard.candidates', () => {

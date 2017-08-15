@@ -1,5 +1,12 @@
 'use strict'
 
+/*!
+ * STI College Novaliches
+ * SEC Voting System Server
+ *
+ * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
+ */
+
 const Lucid = use('Lucid')
 
 class Category extends Lucid {
@@ -41,6 +48,10 @@ class Category extends Lucid {
 
   judges () {
     return this.belongsToMany('App/Model/Judge', 'category_judges')
+  }
+
+  subcategories () {
+    return this.hasMany('App/Model/Subcategory')
   }
 
   getIsActive (value) {

@@ -1,6 +1,6 @@
-{% extends '../../layouts/dashboard' %}
+{% extends '../../../layouts/dashboard' %}
 
-{% set page_title = 'Categories' %}
+{% set page_title = 'Subcategories' %}
 {% set active_menu = 'categories' %}
 
 {% block subcontent %}
@@ -9,18 +9,21 @@
       <div class="container is-fluid">
         <div class="level">
           <div class="level-left">
-            <h1 class="title">Categories</h1>
+            <div>
+              <h1 class="title">{{ category.name }}</h1>
+              <h2 class="subtitle">Subcategories</h2>
+            </div>
           </div>
 
           <div class="level-right">
             <div class="field is-grouped">
               <p class="control">
-                <a href="{{ route('dashboard.categories.add') }}" class="button is-primary">
+                <a href="{{ route('dashboard.categories.sub.add', { id: category.id }) }}" class="button is-primary">
                   <span class="icon is-small">
                     <i class="fa fa-plus"></i>
                   </span>
 
-                  <span>Add Category</span>
+                  <span>Add Subcategory</span>
                 </a>
               </p>
             </div>
@@ -40,21 +43,13 @@
       </thead>
 
       <tbody>
-        {% for category in result.toJSON() %}
+        {% for subcategory in result.toJSON() %}
           <tr>
-            <td>{{ category.name }}</td>
+            <td>{{ subcategory.name }}</td>
             <td>
               <div class="field is-grouped">
                 <p class="control">
-                  <a href="{{ route('dashboard.categories.sub', { id: category.id }) }}" class="button is-light is-small">
-                    <span class="icon is-small">
-                      <i class="fa fa-sitemap"></i>
-                    </span>
-                  </a>
-                </p>
-
-                <p class="control">
-                  <a href="{{ route('dashboard.categories.edit', { id: category.id }) }}" class="button is-primary is-small is-inverted">
+                  <a href="{{ route('dashboard.categories.sub.edit', { id: category.id, sid: subcategory.id }) }}" class="button is-primary is-small is-inverted">
                     <span class="icon is-small">
                       <i class="fa fa-pencil"></i>
                     </span>
@@ -62,7 +57,7 @@
                 </p>
 
                 <p class="control">
-                  <a href="{{ route('dashboard.categories.delete', { id: category.id }) }}" class="button is-danger is-small is-inverted">
+                  <a href="{{ route('dashboard.categories.sub.delete', { id: category.id, sid: subcategory.id }) }}" class="button is-danger is-small is-inverted">
                     <span class="icon is-small">
                       <i class="fa fa-times"></i>
                     </span>

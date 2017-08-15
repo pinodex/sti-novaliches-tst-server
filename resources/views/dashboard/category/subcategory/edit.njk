@@ -1,0 +1,83 @@
+{% extends '../../../layouts/dashboard' %}
+
+{% set page_title = 'Add Subcategory' %}
+{% set active_menu = 'categories' %}
+
+{% set formUrl = url('dashboard.categories.sub.add', { id: category.id }) %}
+
+{% if model.id %}
+  {% set page_title = 'Edit Subcategory' %}
+    {% set formUrl = url('dashboard.categories.sub.edit', { id: category.id, sid: model.id }) %}
+{% endif %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <div>
+              <h1 class="title">{{ category.name }}</h1>
+
+              {% if model.id %}
+                <h2 class="subtitle">Edit Subcategory</h2>
+              {% else %}
+                <h2 class="subtitle">Add Subcategory</h2>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="level-right">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="main">
+    <div class="columns">
+      <div class="column is-4 is-offset-4">
+        <div class="box">
+          {% if old('errors') %}
+            {% for error in old('errors') %}
+              <div class="notification is-danger">
+                <small>{{ error.message | capitalize }}</small>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          <form class="form" action="{{ formUrl }}" method="post">
+            {{ csrfField }}
+
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" type="text" name="name" value="{{ old('name', model.name) }}" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Order</label>
+              <div class="control">
+                <input class="input" type="number" name="order" value="{{ old('order', model.order) }}" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="control is-clearfix">
+                <button class="button is-primary is-pulled-right">
+                  <span class="icon is-small">
+                    <i class="fa fa-save"></i>
+                  </span>
+
+                  <span>Save</span>
+                </button>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

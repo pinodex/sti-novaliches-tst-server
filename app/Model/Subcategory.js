@@ -9,23 +9,16 @@
 
 const Lucid = use('Lucid')
 
-class Criteria extends Lucid {
+class Subcategory extends Lucid {
   static boot () {
     super.boot()
 
     this.addHook('beforeCreate', 'Uuid.setId')
   }
 
-  static get table () {
-    return 'criterias'
-  }
-
   static rules (id) {
     return {
       name: 'required',
-      description: 'required',
-      percentage: 'required|range:0,101',
-      minimum_value: 'required|range:0,100',
       order: 'required|range:0,1000'
     }
   }
@@ -44,17 +37,9 @@ class Criteria extends Lucid {
     return null
   }
 
-  categories () {
-    return this.belongsToMany('App/Model/Category', 'category_criterias', 'criteria_id', 'category_id')
-  }
-
-  getPercentage (value) {
-    return value * 100
-  }
-
-  setPercentage (value) {
-    return value / 100
+  category () {
+    return this.belongsTo('App/Model/Category')
   }
 }
 
-module.exports = Criteria
+module.exports = Subcategory
