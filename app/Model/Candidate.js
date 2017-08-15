@@ -14,7 +14,8 @@ class Candidate extends Lucid {
 
   static rules (id) {
     return {
-      name: 'required'
+      name: 'required',
+      order: 'required|range:0,1000'
     }
   }
 
