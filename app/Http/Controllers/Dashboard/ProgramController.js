@@ -32,6 +32,24 @@ class ProgramController {
     response.status(204).send()
   }
 
+  * update (request, response) {
+    const type = request.input('type')
+
+    switch (type) {
+      case 'categories':
+        Event.fire('send_categories')
+
+        break
+
+      case 'candidates':
+        Event.fire('send_candidates')
+
+        break
+    }
+
+    response.status(204).send()
+  }
+
 }
 
 module.exports = ProgramController

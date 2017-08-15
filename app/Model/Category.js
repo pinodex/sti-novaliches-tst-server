@@ -38,6 +38,10 @@ class Category extends Lucid {
     return this.belongsToMany('App/Model/Criteria', 'category_criterias', 'category_id', 'criteria_id')
   }
 
+  judges () {
+    return this.belongsToMany('App/Model/Judge', 'category_judges')
+  }
+
   stages () {
     return this.hasMany('App/Model/Stage')
   }

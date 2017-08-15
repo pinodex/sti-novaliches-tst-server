@@ -8,7 +8,7 @@
  */
 
 const Category = use('App/Model/Category'),
-      Candidate = use('App/Model/Candidate')
+      Judge = use('App/Model/Judge')
 
 class CandidatesController {
   /**
@@ -17,7 +17,7 @@ class CandidatesController {
   * index (request, response) {
     const categories = yield Category.all()
 
-    yield response.sendView('dashboard/connection/candidates/index', {
+    yield response.sendView('dashboard/connection/judges/index', {
       categories
     })
   }
@@ -27,51 +27,51 @@ class CandidatesController {
    */
   * edit (request, response) {
     const categories = yield Category.all(),
-          candidates = yield Candidate.query()
+          judges = yield Judge.query()
             .with('categories')
             .fetch()
 
     const model = yield Category.query()
-      .with('candidates')
+      .with('judges')
       .where('id', request.param('id'))
       .first()
 
     if (!model) {
-      return response.route('dashboard.connections.candidates')
+      return response.route('dashboard.connections.judges')
     }
 
-    let mappedCandidates = []
+    let mappedJudges = []
 
-    candidates.each(candidate => {
-      let mappedCandidate = candidate.toJSON()
+    judges.each(judge => {
+      let mappedCandidate = judge.toJSON()
 
       mappedCandidate['is_selected'] = false
 
-      if (model.relations.candidates.findIndex(c => c.id == candidate.id) > -1) {
+      if (model.relations.judges.findIndex(c => c.id == judge.id) > -1) {
         mappedCandidate['is_selected'] = true
       }
 
-      mappedCandidates.push(mappedCandidate)
+      mappedJudges.push(mappedCandidate)
     })
 
     if (request.method() == 'POST') {
-      let selectedCandidates = request.input('candidates')
+      let selectedJudges = request.input('judges')
 
-      if (!(selectedCandidates instanceof Array)) {
-        selectedCandidates = [selectedCandidates]
+      if (!(selectedJudges instanceof Array)) {
+        selectedJudges = [selectedJudges]
       }
 
-      yield model.candidates().sync(selectedCandidates)
+      yield model.judges().sync(selectedJudges)
 
       yield request.with({ success: `Changes to ${model.name} has been saved` }).flash()
 
-      return response.route('dashboard.connections.candidates.edit', {
+      return response.route('dashboard.connections.judges.edit', {
         id: model.id
       })
     }
 
-    yield response.sendView('dashboard/connection/candidates/edit', {
-      categories, candidates, model, mappedCandidates
+    yield response.sendView('dashboard/connection/judges/edit', {
+      categories, judges, model, mappedJudges
     })
   }
 }

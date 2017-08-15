@@ -56,6 +56,19 @@ export default {
 
         this.ui.program.control_disabled = false
       })
+  },
+
+  sendProgramUpdate (type) {
+    this.ui.program.control_disabled = true
+
+    this.$http
+      .post('/dashboard/program/update', { type })
+      .then(response => {
+        this.ui.program.control_disabled = false
+      })
+      .catch(error => {
+        this.ui.program.control_disabled = false
+      })
   }
 
 }

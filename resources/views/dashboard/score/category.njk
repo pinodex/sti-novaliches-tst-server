@@ -1,0 +1,169 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Scores' %}
+{% set active_menu = 'scores' %}
+
+{% set error = old('error') %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title">Scores</h1>
+          </div>
+
+          <div class="level-right">
+
+          </div>
+        </div>
+
+        <form method="get">
+          <div class="columns">
+            <div class="column is-3">
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select name="category_id">
+                    {% for c in categories.toJSON() %}
+                      {% if category.id == c.id %}
+                        <option value="{{ c.id }}" selected>{{ c.name }}</option>
+                      {% else %}
+                        <option value="{{ c.id }}">{{ c.name }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-1">
+              <button type="submit" class="button is-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="container is-fluid">
+    <h2 class="subtitle">Judges scores for {{ category.name }}</h2>
+
+    <div class="scrollable-table">
+      <table class="table is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th rowspan="3" class="has-text-centered">Contestant</th>
+            <th colspan="{{ category.judges.length * (category.criterias.length + 1) }}" class="has-text-centered">Judges</th>
+          </tr>
+
+          <tr>
+            {% for judge in category.judges %}
+              <th colspan="{{ category.criterias.length + 1 }}" class="has-text-centered">{{ judge.name }}</th>
+            {% endfor %}
+          </tr>
+
+          <tr>
+            {% for judge in category.judges %}
+              {% for criteria in category.criterias %}
+                <th>
+                  <small>{{ criteria.name }} ({{ criteria.percentage }}%)</small>
+                </th>
+              {% endfor %}
+
+              <th>
+                <small>AVG</small>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for candidate in category.candidates %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
+                    </figure>
+                  </div>
+
+                  <div class="media-content">
+                    <h1 class="title is-5">{{ candidate.name }}</h1>
+                  </div>
+                </div>
+              </td>
+
+              {% for judge in category.judges %}
+                {% for criteria in category.criterias %}
+                  {% set score = findScore(candidate.scores, judge, criteria) %}
+
+                  {% if score %}
+                    <td class="has-text-centered">{{ score.value }}</td>
+                  {% else %}
+                    <td class="has-text-centered">N/A</td>
+                  {% endif %}
+                {% endfor %}
+
+                <td class="has-text-centered">
+                  {{ getAverageScore(candidate.scores, category.criterias, category, judge) }}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="subtitle">Accumulated scores for {{ category.name }}</h2>
+
+    <div class="scrollable-table">
+      <table class="table is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th rowspan="2" class="has-text-centered">Contestant</th>
+            <th colspan="{{ category.judges.length }}" class="has-text-centered">Judges</th>
+            <th rowspan="2" class="has-text-centered">Average</th>
+          </tr>
+
+          <tr>
+            {% for judge in category.judges %}
+              <th class="has-text-centered">{{ judge.name }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for candidate in category.candidates %}
+            <tr>
+              <td>
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
+                    </figure>
+                  </div>
+
+                  <div class="media-content">
+                    <h1 class="title is-5">{{ candidate.name }}</h1>
+                  </div>
+                </div>
+              </td>
+
+              {% for judge in category.judges %}
+                <td class="has-text-centered">
+                  {{ getAverageScore(candidate.scores, category.criterias, category, judge) }}
+                </td>
+              {% endfor %}
+
+              <td class="has-text-centered">{{ getTotalAverage(candidate.scores, category.criterias, category) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

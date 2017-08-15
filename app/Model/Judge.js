@@ -45,6 +45,10 @@ class Judge extends Lucid {
     }
   }
 
+  categories () {
+    return this.belongsToMany('App/Model/Category', 'category_judges')
+  }
+
   static * getByCredentials (username, password) {
     const judge = yield this.query().where('username', username).first()
 

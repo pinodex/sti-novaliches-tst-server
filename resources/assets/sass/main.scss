@@ -8,7 +8,6 @@
 
 body {
   overflow-x: initial;
-  background: #f6f9fc;
 
   &.main-page {
     background: #fff;
@@ -386,6 +385,17 @@ body {
         margin-right: 1rem;
       }
     }
+  }
+}
+
+.scrollable-table {
+  overflow-x: scroll;
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  .table {
+    margin-bottom: 0;
+    white-space: nowrap;
   }
 }
 

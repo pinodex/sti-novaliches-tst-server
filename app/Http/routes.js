@@ -225,6 +225,23 @@ Route.group('dashboard.connections.candidates', () => {
 .middleware('auth:account')
 
 /**
+ * Connections - Judges
+ */
+Route.group('dashboard.connections.judges', () => {
+
+  Route
+    .get('/', 'Dashboard/Connection/JudgesController.index')
+    .as('dashboard.connections.judges')
+
+  Route
+    .route('/:id',  ['GET', 'POST'], 'Dashboard/Connection/JudgesController.edit')
+    .as('dashboard.connections.judges.edit')
+
+})
+.prefix('dashboard/connections/judges')
+.middleware('auth:account')
+
+/**
  * Criterias - Categories
  */
 Route.group('dashboard.connections.criterias', () => {
@@ -242,6 +259,19 @@ Route.group('dashboard.connections.criterias', () => {
 .middleware('auth:account')
 
 /**
+ * Scores
+ */
+Route.group('dashboard.scores', () => {
+
+  Route
+    .get('/', 'Dashboard/ScoreController.index')
+    .as('dashboard.scores')
+
+})
+.prefix('dashboard/scores')
+.middleware('auth:account')
+
+/**
  * Program
  */
 Route.group('dashboard.program', () => {
@@ -249,6 +279,10 @@ Route.group('dashboard.program', () => {
   Route
     .post('category', 'Dashboard/ProgramController.category')
     .as('dashboard.program.category')
+
+  Route
+    .post('update', 'Dashboard/ProgramController.update')
+    .as('dashboard.program.update')
 
 })
 .prefix('dashboard/program')

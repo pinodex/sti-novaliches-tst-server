@@ -15,11 +15,10 @@ class CriteriasController {
    * Criterias connection index page
    */
   * index (request, response) {
-    const categories = yield Category.all(),
-          criterias = yield Criteria.all()
+    const categories = yield Category.all()
 
     yield response.sendView('dashboard/connection/criterias/index', {
-      categories, criterias
+      categories
     })
   }
 

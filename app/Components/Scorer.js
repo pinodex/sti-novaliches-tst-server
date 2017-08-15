@@ -32,7 +32,7 @@ class Scorer {
   static * score (judge, id, value) {
     let entity = Scorer.parseId(id),
         category = yield Category.query()
-          .with('candidates', 'criterias')
+          .with('candidates', 'criterias', 'judges')
           .where('id', entity.category)
           .first()
 
@@ -42,6 +42,10 @@ class Scorer {
 
     if (!category.is_active) {
       throw new Error('Selected category is not active')
+    }
+
+    if (!category.relations.judges.find(c => c.id == judge.id)) {
+      throw new Error('You are not listed as a judge for this program')
     }
 
     let candidate = yield Candidate.findOrFail(entity.candidate),
@@ -57,6 +61,10 @@ class Scorer {
 
     if (value < criteria.minimum_value) {
       throw new Error(`The minimum value for ${criteria.name} criteria is ${criteria.minimum_value}`)
+    }
+
+    if (value > 100) {
+      throw new Error(`The minimum value for ${criteria.name} criteria is 100`)
     }
 
     let score = yield Score.query().where({

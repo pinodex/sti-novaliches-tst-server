@@ -51,6 +51,13 @@ module.exports = [
         identifier: 'connections',
         route: 'dashboard.connections',
         name: 'Connections'
+      },
+
+      {
+        icon: 'star',
+        identifier: 'scores',
+        route: 'dashboard.scores',
+        name: 'Scores'
       }
     ]
   }

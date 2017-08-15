@@ -1,0 +1,50 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Scores' %}
+{% set active_menu = 'scores' %}
+
+{% set error = old('error') %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title">Scores</h1>
+          </div>
+
+          <div class="level-right">
+
+          </div>
+        </div>
+
+        <form method="get">
+          <div class="columns">
+            <div class="column is-3">
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select name="category_id">
+                    {% for category in categories.toJSON() %}
+                      <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-1">
+              <button type="submit" class="button is-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="container is-fluid">
+    <p>Select a category</p>
+  </div>
+{% endblock %}

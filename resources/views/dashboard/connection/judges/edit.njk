@@ -1,0 +1,103 @@
+{% extends '../index' %}
+
+{% set subpage_title = 'Judges' %}
+{% set active_submenu = 'judges' %}
+
+{% set formUrl = url('dashboard.connections.judges.edit', { id: model.id }) %}
+
+{% block framecontent %}
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column is-4">
+        <h2 class="subtitle">Judges</h2>
+
+        <aside class="menu">
+          <ul class="menu-list">
+            {% for category in categories.toJSON() %}
+              {% if model.id == category.id %}
+                <li>
+                  <a class="is-active" href="{{ route('dashboard.connections.judges.edit', { id: category.id }) }}">
+                    {{ category.name }}
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ route('dashboard.connections.judges.edit', { id: category.id }) }}">
+                    {{ category.name }}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column">
+        <h2 class="subtitle">Judges</h2>
+
+        <form action="{{ formUrl }}" method="post">
+          {{ csrfField }}
+          <div class="field">
+            <div class="control">
+              <div class="select is-multiple">
+                <select name="judges" multiple>
+                  {% for judge in mappedJudges %}
+                    {% if judge.is_selected %}
+                      <option value="{{ judge.id }}" selected>
+                        {{ judge.name }}
+
+                        {% if judge.categories.length > 0 %}
+                          (
+
+                          {% for category in judge.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < judge.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
+                    {% else %}
+                      <option value="{{ judge.id }}">
+                        {{ judge.name }}
+
+                        {% if judge.categories.length > 0 %}
+                          (
+
+                          {% for category in judge.categories %}
+                            {{ category.name }}
+
+                            {% if loop.index < judge.categories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="control is-clearfix">
+              <button class="button is-primary is-pulled-right">
+                <span class="icon is-small">
+                  <i class="fa fa-save"></i>
+                </span>
+
+                <span>Save</span>
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

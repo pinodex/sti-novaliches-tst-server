@@ -71,7 +71,37 @@
         </div>
       </div>
 
-      <div class="column"></div>
+      <div class="column">
+        <div class="box">
+          <p class="control has-contents-below">
+            <button class="button is-fullwidth" type="submit"
+              :class="{ 'is-loading': ui.program.control_disabled }"
+              :disabled="ui.program.control_disabled"
+              @click="sendProgramUpdate('categories')">
+
+              <span class="icon is-small">
+                <i class="fa fa-send"></i>
+              </span>
+
+              <span>Send Category Update</span>
+            </button>
+          </p>
+
+          <p class="control">
+            <button class="button is-fullwidth" type="submit"
+              :class="{ 'is-loading': ui.program.control_disabled }"
+              :disabled="ui.program.control_disabled"
+              @click="sendProgramUpdate('candidates')">
+
+              <span class="icon is-small">
+                <i class="fa fa-send"></i>
+              </span>
+
+              <span>Send Candidate Update</span>
+            </button>
+          </p>
+        </div>
+      </div>
 
       <div class="column"></div>
     </div>
