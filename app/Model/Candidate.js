@@ -65,6 +65,10 @@ class Candidate extends Lucid {
     return this.belongsToMany('App/Model/Category', 'candidate_categories')
   }
 
+  subcategories () {
+    return this.belongsToMany('App/Model/Subcategory', 'candidate_subcategories')
+  }
+
   scores () {
     return this.hasMany('App/Model/Score')
   }

@@ -28,13 +28,16 @@ class Result {
   }
 
   * load () {
-    yield this._category.related('candidates', 'criterias', 'judges').load()
-
     this._scores = yield Score.query()
       .where('category_id', this._category.id)
       .fetch()
 
+    this._subcategories = yield this._category.subcategories()
+      .orderBy('order', 'ASC')
+      .fetch()
+
     this._candidates = yield this._category.candidates()
+      .with('subcategories')
       .orderBy('order', 'ASC')
       .fetch()
 
@@ -51,6 +54,10 @@ class Result {
     const result = this._candidates.sort(cb)
 
     this._candidates = result
+  }
+
+  inSubcategory (candidate, subcategoryId) {
+    return candidate.subcategories.findIndex(s => s.id == subcategoryId) > -1
   }
 
   getCriteriaScore (candidateId, judgeId, criteriaId) {
@@ -123,6 +130,10 @@ class Result {
 
   get scores () {
     return this._scores.toJSON()
+  }
+
+  get subcategories () {
+    return this._subcategories.toJSON()
   }
 
   get candidates () {

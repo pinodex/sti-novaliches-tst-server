@@ -40,6 +40,10 @@ class Subcategory extends Lucid {
   category () {
     return this.belongsTo('App/Model/Category')
   }
+
+  candidates () {
+    return this.belongsToMany('App/Model/Candidate', 'candidate_subcategories')
+  }
 }
 
 module.exports = Subcategory

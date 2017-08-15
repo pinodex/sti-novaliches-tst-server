@@ -1,0 +1,111 @@
+{% extends '../index' %}
+
+{% set subpage_title = 'Subcategories' %}
+{% set active_submenu = 'subcategories' %}
+
+{% set formUrl = url('dashboard.connections.subcategories.edit', { id: model.id }) %}
+
+{% block framecontent %}
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column is-4">
+        <h2 class="subtitle">Categories</h2>
+
+        <aside class="menu">
+          <ul class="menu-list">
+            {% for category in categories.toJSON() %}
+              {% if model.id == category.id %}
+                <li>
+                  <a class="is-active" href="{{ route('dashboard.connections.subcategories.edit', { id: category.id }) }}">
+                    {{ category.name }}
+
+                    {% if category.category %}
+                      ({{ category.category.name }})
+                    {% endif %}
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ route('dashboard.connections.subcategories.edit', { id: category.id }) }}">
+                    {{ category.name }}
+
+                    {% if category.category %}
+                      ({{ category.category.name }})
+                    {% endif %}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column">
+        <h2 class="subtitle">Candidates</h2>
+
+        <form action="{{ formUrl }}" method="post">
+          {{ csrfField }}
+          <div class="field">
+            <div class="control">
+              <div class="select is-multiple">
+                <select name="candidates" multiple>
+                  {% for candidate in mappedCandidates %}
+                    {% if candidate.is_selected %}
+                      <option value="{{ candidate.id }}" selected>
+                        {{ candidate.name }}
+
+                        {% if candidate.subcategories.length > 0 %}
+                          (
+
+                          {% for category in candidate.subcategories %}
+                            {{ category.name }}
+
+                            {% if loop.index < candidate.subcategories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
+                    {% else %}
+                      <option value="{{ candidate.id }}">
+                        {{ candidate.name }}
+
+                        {% if candidate.subcategories.length > 0 %}
+                          (
+
+                          {% for category in candidate.subcategories %}
+                            {{ category.name }}
+
+                            {% if loop.index < candidate.subcategories.length %}
+                              /
+                            {% endif %}
+                          {% endfor %}
+
+                          )
+                        {% endif %}
+                      </option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="control is-clearfix">
+              <button class="button is-primary is-pulled-right">
+                <span class="icon is-small">
+                  <i class="fa fa-save"></i>
+                </span>
+
+                <span>Save</span>
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -225,6 +225,23 @@ Route.group('dashboard.connections.candidates', () => {
 .middleware('auth:account')
 
 /**
+ * Connections - Subcategories
+ */
+Route.group('dashboard.connections.subcategories', () => {
+
+  Route
+    .get('/', 'Dashboard/Connection/SubcategoriesController.index')
+    .as('dashboard.connections.subcategories')
+
+  Route
+    .route('/:id',  ['GET', 'POST'], 'Dashboard/Connection/SubcategoriesController.edit')
+    .as('dashboard.connections.subcategories.edit')
+
+})
+.prefix('dashboard/connections/subcategories')
+.middleware('auth:account')
+
+/**
  * Connections - Judges
  */
 Route.group('dashboard.connections.judges', () => {

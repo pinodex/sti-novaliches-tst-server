@@ -1,0 +1,35 @@
+{% extends '../index' %}
+
+{% set subpage_title = 'Subcategories' %}
+{% set active_submenu = 'subcategories' %}
+
+{% block framecontent %}
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column is-4">
+        <h2 class="subtitle">Subcategories</h2>
+
+        <aside class="menu">
+          <ul class="menu-list">
+            {% for category in categories.toJSON() %}
+              <li>
+                <a href="{{ route('dashboard.connections.subcategories.edit', { id: category.id }) }}">
+                  {{ category.name }}
+
+                  {% if category.category %}
+                    ({{ category.category.name }})
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </aside>
+      </div>
+
+      <div class="column">
+        <h2 class="subtitle">Candidates</h2>
+        <p>Select category</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
