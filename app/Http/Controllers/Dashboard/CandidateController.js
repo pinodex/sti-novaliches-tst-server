@@ -90,7 +90,7 @@ class CandidateController {
       yield model.delete()
       yield request.with({ success: `${model.name} candidate has been deleted` }).flash()
 
-      response.route('dashboard.candidates')
+      return response.route('dashboard.candidates')
     }
 
     yield response.sendView('dashboard/candidate/delete', { model })

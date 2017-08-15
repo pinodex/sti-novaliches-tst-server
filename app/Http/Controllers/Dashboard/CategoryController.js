@@ -86,7 +86,7 @@ class CategoryController {
       yield model.delete()
       yield request.with({ success: `${model.name} category has been deleted` }).flash()
 
-      response.route('dashboard.categories')
+      return response.route('dashboard.categories')
     }
 
     yield response.sendView('dashboard/category/delete', { model })

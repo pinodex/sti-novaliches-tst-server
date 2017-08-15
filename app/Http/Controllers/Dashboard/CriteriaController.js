@@ -82,7 +82,7 @@ class CriteriaController {
       yield model.delete()
       yield request.with({ success: `${model.name} criteria has been deleted` }).flash()
 
-      response.route('dashboard.criterias')
+      return response.route('dashboard.criterias')
     }
 
     yield response.sendView('dashboard/criteria/delete', { model })
