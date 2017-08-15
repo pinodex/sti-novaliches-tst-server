@@ -37,7 +37,7 @@ class Aggregator {
   static * getCandidates () {
     const candidates = yield Candidate.query()
       .with('categories')
-      .orderBy('name', 'ASC')
+      .orderBy('order', 'ASC')
       .fetch()
 
     let output = []
