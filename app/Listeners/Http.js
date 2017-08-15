@@ -103,6 +103,10 @@ Http.onStart = function () {
         return true
       }
 
+      if (!category.is_weighted) {
+        criteria.percentage = (1 / criterias.length) * 100
+      }
+
       average += score.value * (criteria.percentage / 100)
     })
 
@@ -127,6 +131,10 @@ Http.onStart = function () {
 
       if (!(score.judge_id in judgesAverages)) {
         judgesAverages[score.judge_id] = 0
+      }
+
+      if (!category.is_weighted) {
+        criteria.percentage = (1 / criterias.length) * 100
       }
 
       judgesAverages[score.judge_id] += score.value * (criteria.percentage / 100)

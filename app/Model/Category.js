@@ -12,7 +12,8 @@ class Category extends Lucid {
   static rules (id) {
     return {
       name: 'required',
-      order: 'required|range:0,1000'
+      order: 'required|range:0,1000',
+      is_weighted: 'required|in:0,1'
     }
   }
 
@@ -46,7 +47,11 @@ class Category extends Lucid {
     return this.hasMany('App/Model/Stage')
   }
 
-  getIsActive(value) {
+  getIsActive (value) {
+    return value == 1
+  }
+
+  getIsWeighted (value) {
     return value == 1
   }
 

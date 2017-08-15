@@ -41,7 +41,7 @@ class CategoryController {
     }
 
     if (request.method() == 'POST') {
-      const data = request.only(['name', 'order']),
+      const data = request.only(['name', 'order', 'is_weighted']),
             validation = yield Helpers.validateModel(Category, data, data.id)
 
       if (validation.fails()) {
