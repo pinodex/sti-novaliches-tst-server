@@ -19,7 +19,9 @@
           </div>
         </div>
 
-        <form method="get">
+        <form method="post" action="{{ route('dashboard.scores') }}">
+          {{ csrfField }}
+
           <div class="columns">
             <div class="column is-3">
               <div class="control">

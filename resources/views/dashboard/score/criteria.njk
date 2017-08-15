@@ -1,0 +1,68 @@
+{% extends './category' %}
+
+{% set active_tab = null %}
+
+{% block sectioncontent %}
+  <h2 class="subtitle">Judges scores for {{ result.category.name }}</h2>
+
+  <div class="scrollable-table">
+    <table class="table is-bordered is-fullwidth">
+      <thead>
+        <tr>
+          <th rowspan="3" class="has-text-centered">#</th>
+          <th rowspan="3" class="has-text-centered">Contestant</th>
+          <th colspan="{{ result.judges.length }}" class="has-text-centered">Judges</th>
+        </tr>
+
+        <tr>
+          {% for judge in result.judges %}
+            <th class="has-text-centered">{{ judge.name }}</th>
+          {% endfor %}
+        </tr>
+
+        <tr>
+          {% for judge in result.judges %}
+            {% for _criteria in result.criterias if _criteria.id == criteria.id %}
+              <th class="has-text-centered">
+                <small>{{ _criteria.name }} ({{ _criteria.percentage }}%)</small>
+              </th>
+            {% endfor %}
+
+            <th class="has-text-centered">
+              <small>AVG</small>
+            </th>
+          {% endfor %}
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for candidate in result.candidates %}
+          <tr>
+            <td class="is-fit has-text-centered">{{ loop.index }}</td>
+            <td>
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
+                  </figure>
+                </div>
+
+                <div class="media-content">
+                  <h1 class="title is-5">{{ candidate.name }}</h1>
+                </div>
+              </div>
+            </td>
+
+            {% for judge in result.judges %}
+              {% for criteria in result.criterias %}
+                <td class="has-text-centered">{{ result.getCriteriaScore(candidate.id, judge.id, criteria.id) }}</td>
+              {% endfor %}
+
+              <td class="has-text-centered">{{ result.getAverage(candidate.id, judge.id) | fixed }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

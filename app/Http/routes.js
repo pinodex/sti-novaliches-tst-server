@@ -239,8 +239,20 @@ Route.group('dashboard.connections.criterias', () => {
 Route.group('dashboard.scores', () => {
 
   Route
-    .get('/', 'Dashboard/ScoreController.index')
+    .route('/', ['GET', 'POST'], 'Dashboard/ScoreController.index')
     .as('dashboard.scores')
+
+  Route
+    .get(':id/overview', 'Dashboard/ScoreController.overview')
+    .as('dashboard.scores.overview')
+
+  Route
+    .get(':id/details', 'Dashboard/ScoreController.details')
+    .as('dashboard.scores.details')
+
+  Route
+    .get(':id/criteria/:cid', 'Dashboard/ScoreController.criteria')
+    .as('dashboard.scores.criteria')
 
 })
 .prefix('dashboard/scores')

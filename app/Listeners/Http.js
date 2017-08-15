@@ -89,67 +89,7 @@ Http.onStart = function () {
     return result
   })
 
-  View.global('getAverageScore', (scores, criterias, category, judge) => {
-    let average = 0
-
-    const results = scores.filter(score => {
-      return score.category_id == category.id && score.judge_id == judge.id
-    })
-
-    results.forEach(score => {
-      const criteria = criterias.find(c => c.id == score.criteria_id)
-
-      if (!criteria) {
-        return true
-      }
-
-      if (!category.is_weighted) {
-        criteria.percentage = (1 / criterias.length) * 100
-      }
-
-      average += score.value * (criteria.percentage / 100)
-    })
-
-    return average.toFixed(2)
-  })
-
-  View.global('getTotalAverage', (scores, criterias, category) => {
-    let average = 0
-
-    let judgesAverages = {}
-
-    const results = scores.filter(score => {
-      return score.category_id == category.id
-    })
-
-    results.forEach(score => {
-      const criteria = criterias.find(c => c.id == score.criteria_id)
-
-      if (!criteria) {
-        return true
-      }
-
-      if (!(score.judge_id in judgesAverages)) {
-        judgesAverages[score.judge_id] = 0
-      }
-
-      if (!category.is_weighted) {
-        criteria.percentage = (1 / criterias.length) * 100
-      }
-
-      judgesAverages[score.judge_id] += score.value * (criteria.percentage / 100)
-    })
-
-    let averages = Object.keys(judgesAverages).map(key => {
-      return judgesAverages[key]
-    })
-
-    averages.forEach(subAverage => {
-      average += subAverage
-    })
-
-    average /= averages.length
-
-    return average.toFixed(2)
+  View.filter('fixed', function(num, length) {
+    return num.toFixed(length || 2);
   })
 }

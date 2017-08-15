@@ -7,7 +7,9 @@
  * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
  */
 
-const Category = use('App/Model/Category')
+const Category = use('App/Model/Category'),
+      Criteria = use('App/Model/Criteria'),
+      Result = use('App/Components/Result')
 
 class ScoreController {
   /**
@@ -16,10 +18,10 @@ class ScoreController {
   * index (request, response) {
     const categories = yield Category.all()
 
-    if (request.input('category_id')) {
-      yield this.category(request, response)
+    if (request.method() == 'POST') {
+      const id = request.input('category_id')
 
-      return
+      return response.route('dashboard.scores.overview', { id })
     }
 
     yield response.sendView('dashboard/score/index', {
@@ -28,18 +30,51 @@ class ScoreController {
   }
 
   /**
-   * Score category page
+   * Score overview page
    */
-  * category (request, response) {
-    const categories = yield Category.all()
+  * overview (request, response) {
+    const categories = yield Category.all(),
+          result = yield Result.get(request.param('id'))
 
-    const category = yield Category.query()
-            .where('id', request.input('category_id'))
-            .with('candidates', 'judges', 'criterias', 'candidates.scores')
-            .first()
+    result.sortCandidates((a, b) => {
+      return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
+    })
 
-    yield response.sendView('dashboard/score/category', {
-      categories, category: category.toJSON()
+    yield response.sendView('dashboard/score/overview', {
+      categories, result
+    })
+  }
+
+  /**
+   * Score details page
+   */
+  * details (request, response) {
+    const categories = yield Category.all(),
+          result = yield Result.get(request.param('id'))
+
+    result.sortCandidates((a, b) => {
+      return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
+    })
+
+    yield response.sendView('dashboard/score/details', {
+      categories, result
+    })
+  }
+
+  /**
+   * Score criteria page
+   */
+  * criteria (request, response) {
+    const categories = yield Category.all(),
+          criteria = yield Criteria.findOrFail(request.param('cid')),
+          result = yield Result.get(request.param('id'))
+
+    result.sortCandidates((a, b) => {
+      return result.getCriteriaAverage(b.id, criteria.id) - result.getCriteriaAverage(a.id, criteria.id)
+    })
+
+    yield response.sendView('dashboard/score/details', {
+      categories, criteria, result
     })
   }
 }
