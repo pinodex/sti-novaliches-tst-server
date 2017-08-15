@@ -35,8 +35,7 @@ export default {
 
     this.$http
       .post('/dashboard/program/category', {
-        category_id: this.program.active_category,
-        stage_id: this.program.active_stage
+        category_id: this.program.active_category
       })
       .then(response => {
         this.ui.program.control_disabled = false

@@ -7,8 +7,7 @@
  * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
  */
 
-const Category = use('App/Model/Category'),
-      Stage = use('App/Model/Stage')
+const Category = use('App/Model/Category')
 
 class MainController {
   /**
@@ -18,7 +17,6 @@ class MainController {
     let program = {}
 
     program.categories = yield Category.all()
-    program.stages = yield Stage.all()
 
     yield response.sendView('dashboard/index', {
       program

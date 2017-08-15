@@ -43,10 +43,6 @@ class Category extends Lucid {
     return this.belongsToMany('App/Model/Judge', 'category_judges')
   }
 
-  stages () {
-    return this.hasMany('App/Model/Stage')
-  }
-
   getIsActive (value) {
     return value == 1
   }

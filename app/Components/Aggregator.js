@@ -16,7 +16,7 @@ class Aggregator {
 
   static * getCategories () {
     const categories = yield Category.query()
-      .with('stages', 'criterias', 'judges')
+      .with('criterias', 'judges')
       .orderBy('order', 'ASC')
       .fetch()
 
@@ -25,7 +25,6 @@ class Aggregator {
     categories.each(category => {
       let item = category.toJSON()
 
-      item.stages = item.stages.sort((a, b) => a.level - b.level)
       item.criterias = item.criterias.sort((a, b) => a.order - b.order)
       item.judges = item.judges.map(judge => judge.id)
 

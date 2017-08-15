@@ -35,26 +35,6 @@
               </p>
             </div>
 
-
-            <div class="field">
-              <label class="label">Active Stage</label>
-
-              <p class="control is-expanded">
-                <span class="select is-fullwidth">
-                  <select name="active_category" v-model="program.active_stage" :disabled="!program.active_category">
-                    <option value="none">None</option>
-
-                    <option v-for="stage in program.stages"
-                            v-if="program.active_category == stage.category_id"
-                            :value="stage.id">
-
-                      {{ '{{ stage.name }}' }}
-                    </option>
-                  </select>
-                </span>
-              </p>
-            </div>
-
             <p class="control has-text-right">
               <button class="button is-primary" type="submit"
                 :class="{ 'is-loading': ui.program.control_disabled }"

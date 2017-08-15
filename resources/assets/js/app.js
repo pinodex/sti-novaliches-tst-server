@@ -83,22 +83,7 @@ let app = new Vue({
 
       program: {
         active_category: null,
-        active_stage: null,
-
-        categories: [],
-        stages: []
-      }
-    }
-  },
-
-  watch: {
-    'program.active_category': function () {
-      let activeStage = this.program.stages.find(stage => {
-        return stage.category_id == this.program.active_category && stage.is_active
-      })
-
-      if (activeStage) {
-        this.program.active_stage = activeStage.id
+        categories: []
       }
     }
   },
