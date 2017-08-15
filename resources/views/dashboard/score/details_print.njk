@@ -1,40 +1,20 @@
-{% extends './category' %}
+{% extends '../../layouts/main' %}
 
-{% set active_tab = 'details' %}
+{% set page_title = 'Print' %}
 
-{% block sectioncontent %}
-  <div class="tabs is-small">
-    <ul>
-      {% for _criteria in result.criterias %}
-        {% if _criteria.id == criteria.id %}
-          <li class="is-active">
-            <a href="{{ url('dashboard.scores.criteria', { id: result.category.id, cid: _criteria.id }) }}">
-              {{ _criteria.name }}
+{% block content %}
+  <img class="has-contents-below" src="/assets/img/logo-100.png" alt="Logo" />
 
-              {% if result.category.is_weighted %}
-                ({{ _criteria.percentage }}%)
-              {% endif %}
-            </a>
-          </li>
-        {% else %}
-          <li>
-            <a href="{{ url('dashboard.scores.criteria', { id: result.category.id, cid: _criteria.id }) }}">
-              {{ _criteria.name }}
+  <h1 class="title">{{ result.category.name }}</h1>
 
-              {% if result.category.is_weighted %}
-                ({{ _criteria.percentage }}%)
-              {% endif %}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
+  {% if criteria %}
+    <h2 class="subtitle">{{ criteria.name }}</h2>
+  {% endif %}
 
-  <h2 class="subtitle">Judges scores for {{ result.category.name }}</h2>
+  <hr />
 
   {% if result.subcategories.length == 0 %}
-    <div class="scrollable-table">
+    <div>
       {% if not criteria %}
         <table class="table is-bordered is-fullwidth">
           <thead>
@@ -160,11 +140,9 @@
   {% endif %}
 
   {% for subcategory in result.subcategories %}
-    <hr />
-
     <h2 class="subtitle">{{ subcategory.name }}</h2>
 
-    <div class="scrollable-table">
+    <div>
       {% if not criteria %}
         <table class="table is-bordered is-fullwidth">
           <thead>
@@ -288,4 +266,24 @@
       {% endif %}
     </div>
   {% endfor %}
+
+  <div class="columns">
+    {% for judge in result.judges %}
+      <div class="column is-4">
+        <div class="signature-area">
+          <p class="title">{{ judge.name }}</p>
+          <p class="subtitle">Judge</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="columns">
+    <div class="column is-4">
+      <div class="signature-area">
+        <p class="title">Name Here</p>
+        <p class="subtitle">Title Here</p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

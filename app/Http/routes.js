@@ -289,12 +289,24 @@ Route.group('dashboard.scores', () => {
     .as('dashboard.scores.overview')
 
   Route
+    .get(':id/overview/print', 'Dashboard/ScoreController.overviewPrint')
+    .as('dashboard.scores.overview.print')
+
+  Route
     .get(':id/details', 'Dashboard/ScoreController.details')
     .as('dashboard.scores.details')
 
   Route
+    .get(':id/details/print', 'Dashboard/ScoreController.detailsPrint')
+    .as('dashboard.scores.details.print')
+
+  Route
     .get(':id/criteria/:cid', 'Dashboard/ScoreController.criteria')
     .as('dashboard.scores.criteria')
+
+  Route
+    .get(':id/criteria/:cid/print', 'Dashboard/ScoreController.criteriaPrint')
+    .as('dashboard.scores.criteria.print')
 
 })
 .prefix('dashboard/scores')

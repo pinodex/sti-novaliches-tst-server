@@ -399,6 +399,22 @@ body {
   }
 }
 
+.signature-area {
+  margin-top: 75px;
+  border-top: 1px solid #000;
+
+  text-align: center;
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
 /**
  * Transitions
  */

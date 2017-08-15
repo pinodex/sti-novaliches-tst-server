@@ -46,6 +46,22 @@ class ScoreController {
   }
 
   /**
+   * Score overview print page
+   */
+  * overviewPrint (request, response) {
+    const categories = yield Category.all(),
+          result = yield Result.get(request.param('id'))
+
+    result.sortCandidates((a, b) => {
+      return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
+    })
+
+    yield response.sendView('dashboard/score/overview_print', {
+      categories, result
+    })
+  }
+
+  /**
    * Score details page
    */
   * details (request, response) {
@@ -57,6 +73,22 @@ class ScoreController {
     })
 
     yield response.sendView('dashboard/score/details', {
+      categories, result
+    })
+  }
+
+  /**
+   * Score details print page
+   */
+  * detailsPrint (request, response) {
+    const categories = yield Category.all(),
+          result = yield Result.get(request.param('id'))
+
+    result.sortCandidates((a, b) => {
+      return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
+    })
+
+    yield response.sendView('dashboard/score/details_print', {
       categories, result
     })
   }
@@ -74,6 +106,23 @@ class ScoreController {
     })
 
     yield response.sendView('dashboard/score/details', {
+      categories, criteria, result
+    })
+  }
+
+  /**
+   * Score criteria page
+   */
+  * criteriaPrint (request, response) {
+    const categories = yield Category.all(),
+          criteria = yield Criteria.findOrFail(request.param('cid')),
+          result = yield Result.get(request.param('id'))
+
+    result.sortCandidates((a, b) => {
+      return result.getCriteriaAverage(b.id, criteria.id) - result.getCriteriaAverage(a.id, criteria.id)
+    })
+
+    yield response.sendView('dashboard/score/details_print', {
       categories, criteria, result
     })
   }

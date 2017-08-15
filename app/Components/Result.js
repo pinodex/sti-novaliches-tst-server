@@ -33,11 +33,11 @@ class Result {
       .fetch()
 
     this._subcategories = yield this._category.subcategories()
+      .with('candidates')
       .orderBy('order', 'ASC')
       .fetch()
 
     this._candidates = yield this._category.candidates()
-      .with('subcategories')
       .orderBy('order', 'ASC')
       .fetch()
 
@@ -54,10 +54,6 @@ class Result {
     const result = this._candidates.sort(cb)
 
     this._candidates = result
-  }
-
-  inSubcategory (candidate, subcategoryId) {
-    return candidate.subcategories.findIndex(s => s.id == subcategoryId) > -1
   }
 
   getCriteriaScore (candidateId, judgeId, criteriaId) {

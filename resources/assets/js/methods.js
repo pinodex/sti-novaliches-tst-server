@@ -68,6 +68,14 @@ export default {
       .catch(error => {
         this.ui.program.control_disabled = false
       })
+  },
+
+  printResult () {
+    let url = `${location.href}/print`,
+        printWindow = window.open(url, 'Print', `height=${screen.height},width=${screen.width},fullscreen=yes`)
+
+    printWindow.moveTo(0, 0)
+    printWindow.print()
   }
 
 }

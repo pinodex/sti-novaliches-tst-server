@@ -33,42 +33,42 @@ set tabs = [
           </div>
 
           <div class="level-right">
+            <form method="post" action="{{ route('dashboard.scores') }}">
+              {{ csrfField }}
 
-          </div>
-        </div>
+              <div class="field has-addons">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select name="category_id">
+                      {% for c in categories.toJSON() %}
+                        {% if result.category.id == c.id %}
+                          <option value="{{ c.id }}" selected>{{ c.name }}</option>
+                        {% else %}
+                          <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
 
-        <form method="post" action="{{ route('dashboard.scores') }}">
-          {{ csrfField }}
-
-          <div class="columns">
-            <div class="column is-3">
-              <div class="control">
-                <div class="select is-fullwidth">
-                  <select name="category_id">
-                    {% for c in categories.toJSON() %}
-                      {% if result.category.id == c.id %}
-                        <option value="{{ c.id }}" selected>{{ c.name }}</option>
-                      {% else %}
-                        <option value="{{ c.id }}">{{ c.name }}</option>
-                      {% endif %}
-                    {% endfor %}
-                  </select>
+                <div class="control">
+                  <button type="submit" class="button is-primary">
+                    <span class="icon is-small">
+                      <i class="fa fa-chevron-right"></i>
+                    </span>
+                  </button>
                 </div>
               </div>
-            </div>
-
-            <div class="column is-1">
-              <button type="submit" class="button is-primary">
-                Submit
-              </button>
-            </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="container is-fluid">
+    <div class="level">
+      <div class="level-left">
     <div class="tabs">
       <ul>
         {% for tab in tabs %}
@@ -83,6 +83,18 @@ set tabs = [
           {% endif %}
         {% endfor %}
       </ul>
+        </div>
+      </div>
+
+      <div class="level-right">
+        <button class="button" @click="printResult()">
+          <span class="icon is-small">
+            <i class="fa fa-print"></i>
+          </span>
+
+          <span>Print</span>
+        </button>
+      </div>
     </div>
 
     {% block sectioncontent %}{% endblock %}
