@@ -39,7 +39,8 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Rank</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length * (result.criterias.length + 1) }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">OAVG</th>
@@ -76,6 +77,7 @@
             {% for candidate in result.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
+                <td class="is-fit has-text-centered">{{ candidate.number }}</td>
                 <td>
                   <div class="media">
                     <div class="media-left">
@@ -107,7 +109,8 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Rank</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">AVG</th>
@@ -132,6 +135,7 @@
             {% for candidate in result.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
+                <td class="is-fit has-text-centered">{{ candidate.number }}</td>
                 <td>
                   <div class="media">
                     <div class="media-left">
@@ -169,7 +173,8 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Rank</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length * (result.criterias.length + 1) }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">OAVG</th>
@@ -206,6 +211,7 @@
             {% for candidate in subcategory.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
+                <td class="is-fit has-text-centered">{{ candidate.number }}</td>
                 <td>
                   <div class="media">
                     <div class="media-left">
@@ -237,7 +243,8 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Rank</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">AVG</th>
@@ -262,6 +269,7 @@
             {% for candidate in subcategory.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
+                <td class="is-fit has-text-centered">{{ candidate.number }}</td>
                 <td>
                   <div class="media">
                     <div class="media-left">

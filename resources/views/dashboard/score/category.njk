@@ -87,13 +87,27 @@ set tabs = [
       </div>
 
       <div class="level-right">
-        <button class="button" @click="printResult()">
-          <span class="icon is-small">
-            <i class="fa fa-print"></i>
-          </span>
+        <div class="field is-grouped">
+          <p class="control">
+            <button class="button" @click="printResult(true)">
+              <span class="icon is-small">
+                <i class="fa fa-print"></i>
+              </span>
 
-          <span>Print</span>
-        </button>
+              <span>Print Winner</span>
+            </button>
+          </p>
+
+          <p class="control">
+            <button class="button" @click="printResult()">
+              <span class="icon is-small">
+                <i class="fa fa-print"></i>
+              </span>
+
+              <span>Print</span>
+            </button>
+          </p>
+        </div>
       </div>
     </div>
 

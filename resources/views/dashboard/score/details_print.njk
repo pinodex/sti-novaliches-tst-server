@@ -19,7 +19,8 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Rank</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length * (result.criterias.length + 1) }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">OAVG</th>
@@ -56,19 +57,8 @@
             {% for candidate in result.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
-                <td>
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
-                      </figure>
-                    </div>
-
-                    <div class="media-content">
-                      <h1 class="title is-5">{{ candidate.name }}</h1>
-                    </div>
-                  </div>
-                </td>
+                <td class="is-fit has-text-centered">{{ candidate.number }}</td>
+                <td>{{ candidate.name }}</td>
 
                 {% for judge in result.judges %}
                   {% for criteria in result.criterias %}
@@ -112,19 +102,7 @@
             {% for candidate in result.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
-                <td>
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
-                      </figure>
-                    </div>
-
-                    <div class="media-content">
-                      <h1 class="title is-5">{{ candidate.name }}</h1>
-                    </div>
-                  </div>
-                </td>
+                <td>{{ candidate.name }}</td>
 
                 {% for judge in result.judges %}
                   <td class="has-text-centered">{{ result.getCriteriaScore(candidate.id, judge.id, criteria.id) }}</td>
@@ -147,7 +125,7 @@
         <table class="table is-bordered is-fullwidth">
           <thead>
             <tr>
-              <th rowspan="3" class="has-text-centered">#</th>
+              <th rowspan="3" class="has-text-centered">Number</th>
               <th rowspan="3" class="has-text-centered">Contestant</th>
               <th colspan="{{ result.judges.length * (result.criterias.length + 1) }}" class="has-text-centered">Judges</th>
               <th rowspan="3" class="has-text-centered">OAVG</th>
@@ -184,19 +162,7 @@
             {% for candidate in subcategory.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
-                <td>
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
-                      </figure>
-                    </div>
-
-                    <div class="media-content">
-                      <h1 class="title is-5">{{ candidate.name }}</h1>
-                    </div>
-                  </div>
-                </td>
+                <td>{{ candidate.name }}</td>
 
                 {% for judge in result.judges %}
                   {% for criteria in result.criterias %}
@@ -240,19 +206,7 @@
             {% for candidate in subcategory.candidates %}
               <tr>
                 <td class="is-fit has-text-centered">{{ loop.index }}</td>
-                <td>
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
-                      </figure>
-                    </div>
-
-                    <div class="media-content">
-                      <h1 class="title is-5">{{ candidate.name }}</h1>
-                    </div>
-                  </div>
-                </td>
+                <td>{{ candidate.name }}</td>
 
                 {% for judge in result.judges %}
                   <td class="has-text-centered">{{ result.getCriteriaScore(candidate.id, judge.id, criteria.id) }}</td>

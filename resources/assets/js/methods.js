@@ -70,9 +70,14 @@ export default {
       })
   },
 
-  printResult () {
-    let url = `${location.href}/print`,
-        printWindow = window.open(url, 'Print', `height=${screen.height},width=${screen.width},fullscreen=yes`)
+  printResult (winner = false) {
+    let url = `${location.href}/print`
+
+    if (winner) {
+      url += '?winner=1'
+    }
+
+    let printWindow = window.open(url, 'Print', `height=${screen.height},width=${screen.width},fullscreen=yes`)
 
     printWindow.moveTo(0, 0)
     printWindow.print()

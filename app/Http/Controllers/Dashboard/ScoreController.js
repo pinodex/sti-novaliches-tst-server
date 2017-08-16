@@ -56,6 +56,14 @@ class ScoreController {
       return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
     })
 
+    if (request.input('winner') == '1') {
+      yield response.sendView('dashboard/score/overview_winner_print', {
+        categories, result
+      })
+
+      return
+    }
+
     yield response.sendView('dashboard/score/overview_print', {
       categories, result
     })
@@ -87,6 +95,14 @@ class ScoreController {
     result.sortCandidates((a, b) => {
       return result.getJudgesAverage(b.id) - result.getJudgesAverage(a.id)
     })
+
+    if (request.input('winner') == '1') {
+      yield response.sendView('dashboard/score/details_winner_print', {
+        categories, result
+      })
+
+      return
+    }
 
     yield response.sendView('dashboard/score/details_print', {
       categories, result
@@ -121,6 +137,14 @@ class ScoreController {
     result.sortCandidates((a, b) => {
       return result.getCriteriaAverage(b.id, criteria.id) - result.getCriteriaAverage(a.id, criteria.id)
     })
+
+    if (request.input('winner') == '1') {
+      yield response.sendView('dashboard/score/details_winner_print', {
+        categories, criteria, result
+      })
+
+      return
+    }
 
     yield response.sendView('dashboard/score/details_print', {
       categories, criteria, result

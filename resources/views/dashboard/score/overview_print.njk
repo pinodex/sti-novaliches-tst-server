@@ -71,19 +71,7 @@
           {% for candidate in subcategory.candidates %}
             <tr>
               <td class="is-fit has-text-centered">{{ loop.index }}</td>
-              <td>
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image is-48x48">
-                      <img src="/storage/{{ candidate.thumb_path }}" alt="Candidate Photo" />
-                    </figure>
-                  </div>
-
-                  <div class="media-content">
-                    <h1 class="title is-5">{{ candidate.name }}</h1>
-                  </div>
-                </div>
-              </td>
+              <td>{{ candidate.name }}</td>
 
               {% for judge in result.judges %}
                 <td class="has-text-centered">{{ result.getAverage(candidate.id, judge.id) | fixed }}</td>
