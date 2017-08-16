@@ -16,6 +16,8 @@ class Result {
 
   constructor (category) {
     this._category = category
+    this._judgesAverage = {}
+
   }
 
   static * get (categoryId) {
@@ -52,6 +54,16 @@ class Result {
 
   sortCandidates (cb) {
     const result = this._candidates.sort(cb)
+
+    if (this.subcategories.length) {
+      const sortedSubs = this._subcategories.map(sub => {
+        sub.relations.candidates = sub.relations.candidates.sort(cb)
+
+        return sub
+      })
+
+      this._subcategories = sortedSubs
+    }
 
     this._candidates = result
   }
@@ -109,6 +121,10 @@ class Result {
   }
 
   getJudgesAverage (candidateId) {
+    if (candidateId in this._judgesAverage) {
+      return this._judgesAverage[candidateId]
+    }
+
     let total = 0
 
     this.judges.forEach(judge => {
@@ -116,6 +132,8 @@ class Result {
     })
 
     total /= this.judges.length
+
+    this._judgesAverage[candidateId] = total
 
     return total
   }
