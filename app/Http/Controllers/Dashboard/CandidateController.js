@@ -42,7 +42,7 @@ class CandidateController {
     }
 
     if (request.method() == 'POST') {
-      const data = request.only(['name', 'order']),
+      const data = request.only(['name', 'order', 'number']),
             validation = yield Helpers.validateModel(Candidate, data, data.id)
 
       if (validation.fails()) {

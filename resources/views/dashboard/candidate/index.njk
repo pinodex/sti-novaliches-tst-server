@@ -34,6 +34,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>#</th>
           <th>Name</th>
           <th class="is-fit">Actions</th>
         </tr>
@@ -42,6 +43,7 @@
       <tbody>
         {% for candidate in result.toJSON() %}
           <tr>
+            <td class="is-fit">{{ candidate.number }}</td>
             <td>
               <div class="media">
                 <div class="media-left">
