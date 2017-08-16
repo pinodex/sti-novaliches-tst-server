@@ -54,6 +54,15 @@
 
                 <div class="media-content">
                   <h1 class="title is-5">{{ candidate.name }}</h1>
+                  <h2 class="subtitle is-6">
+                    {% for category in candidate.categories %}
+                      {{ category.name }}
+
+                      {% if loop.index < candidate.categories.length %}
+                        /
+                      {% endif %}
+                    {% endfor %}
+                  </h2>
                 </div>
               </div>
             </td>

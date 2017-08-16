@@ -16,7 +16,9 @@ class CandidateController {
    * Candidate index page
    */
   * index (request, response) {
-    const candidates = yield Candidate.all()
+    const candidates = yield Candidate.query()
+      .with('categories')
+      .fetch()
 
     yield response.sendView('dashboard/candidate/index', {
       result: candidates
