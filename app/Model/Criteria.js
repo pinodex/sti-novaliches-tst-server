@@ -49,6 +49,10 @@ class Criteria extends Lucid {
     return this.belongsToMany('App/Model/Category', 'category_criterias', 'criteria_id', 'category_id')
   }
 
+  getIsEnabled (value) {
+    return value == 1
+  }
+
   getPercentage (value) {
     return value * 100
   }
