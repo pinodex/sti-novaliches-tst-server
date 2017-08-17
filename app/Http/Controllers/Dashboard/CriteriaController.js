@@ -41,7 +41,7 @@ class CriteriaController {
     }
 
     if (request.method() == 'POST') {
-      const data = request.only(['name', 'description', 'percentage', 'minimum_value', 'order']),
+      const data = request.only(['name', 'description', 'percentage', 'minimum_value', 'order', 'is_enabled']),
             validation = yield Helpers.validateModel(Criteria, data, data.id)
 
       if (validation.fails()) {

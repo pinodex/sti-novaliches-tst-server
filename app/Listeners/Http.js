@@ -51,6 +51,8 @@ Http.onStart = function () {
   const Route = use('Route')
   const View = use('View')
 
+  const qs = require('query-string')
+
   View.global('url', (route, data) => {
     data = data || {}
 
@@ -61,6 +63,18 @@ Http.onStart = function () {
     data = data || {}
 
     return Route.url(route, data)
+  })
+
+  View.global('queryString', params => {
+    return qs.stringify(params)
+  })
+
+  View.global('queryStringMulti', (key, data) => {
+    let params = {}
+
+    params[key] = data
+
+    return qs.stringify(params, { arrayFormat: 'bracket' })
   })
 
   View.global('config', key => {

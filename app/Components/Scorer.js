@@ -59,6 +59,10 @@ class Scorer {
       throw new Error('Selected criteria is not part of the category')
     }
 
+    if (!criteria.is_enabled) {
+      throw new Error(`Criteria ${criteria.name} is not enabled`)
+    }
+
     if (value < criteria.minimum_value) {
       throw new Error(`The minimum value for ${criteria.name} criteria is ${criteria.minimum_value}`)
     }

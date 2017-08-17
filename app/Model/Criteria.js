@@ -26,7 +26,8 @@ class Criteria extends Lucid {
       description: 'required',
       percentage: 'required|range:0,101',
       minimum_value: 'required|range:0,100',
-      order: 'required|range:0,1000'
+      order: 'required|range:0,1000',
+      is_enabled: 'required|in:0,1'
     }
   }
 

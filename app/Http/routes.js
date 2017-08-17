@@ -220,6 +220,10 @@ Route.group('dashboard.connections.candidates', () => {
     .route('/:id',  ['GET', 'POST'], 'Dashboard/Connection/CandidatesController.edit')
     .as('dashboard.connections.candidates.edit')
 
+  Route
+    .route('/:id/filtered',  ['GET', 'POST'], 'Dashboard/Connection/CandidatesController.editFiltered')
+    .as('dashboard.connections.candidates.edit.filtered')
+
 })
 .prefix('dashboard/connections/candidates')
 .middleware('auth:account')

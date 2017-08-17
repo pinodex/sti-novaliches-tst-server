@@ -3,9 +3,17 @@
 {% set active_tab = 'overview' %}
 
 {% block sectioncontent %}
-  <h2 class="subtitle">Overview for {{ result.category.name }}</h2>
-
   {% if result.subcategories.length == 0 %}
+    <div class="level">
+      <div class="level-left">
+        <h2 class="subtitle">Overview for {{ result.category.name }}</h2>
+      </div>
+
+      <div class="level-right">
+        <a class="button is-small" href="{{ route('dashboard.connections.candidates.edit.filtered', { id: result.category.id }) }}?{{ queryStringMulti('ids', result.getTop5Ids(result.candidates)) }}">Manage Top 5</a>
+      </div>
+    </div>
+
     <div class="scrollable-table">
       <table class="table is-bordered is-fullwidth">
         <thead>
@@ -56,9 +64,15 @@
   {% endif %}
 
   {% for subcategory in result.subcategories %}
-    <hr />
+    <div class="level">
+      <div class="level-left">
+        <h2 class="subtitle">Overview for {{ result.category.name }} / {{ subcategory.name }}</h2>
+      </div>
 
-    <h2 class="subtitle">{{ subcategory.name }}</h2>
+      <div class="level-right">
+        <a class="button is-small" href="{{ route('dashboard.connections.candidates.edit.filtered', { id: result.category.id }) }}?{{ queryStringMulti('ids', result.getTop5Ids(subcategory.candidates)) }}">Manage Top 5</a>
+      </div>
+    </div>
 
     <div class="scrollable-table">
       <table class="table is-bordered is-fullwidth">

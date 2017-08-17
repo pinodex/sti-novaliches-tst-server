@@ -68,6 +68,10 @@ class Result {
     this._candidates = result
   }
 
+  getTop5Ids (candidates) {
+    return candidates.slice(0, 5).map(c => c.id)
+  }
+
   getCriteriaScore (candidateId, judgeId, criteriaId) {
     let search = this.scores.find(score => {
           return score.candidate_id == candidateId &&
