@@ -1,6 +1,7 @@
 'use strict'
 
 const Ws = use('Ws')
+const Env = use('Env')
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,5 @@ Ws.global(globalMiddleware)
 Ws.named(namedMiddleware)
 
 Ws.io.set('transports', ['websocket'])
-Ws.io.set('heartbeat timeout', 60000)
-Ws.io.set('heartbeat interval', 25000)
+Ws.io.set('heartbeat timeout', Env.get('SOCKET_TIMEOUT', 60000))
+Ws.io.set('heartbeat interval', Env.get('SOCKET_INTERVAL', 25000))
