@@ -3,7 +3,18 @@
 {% set page_title = 'Print' %}
 
 {% block content %}
-  <img class="has-contents-below" src="/assets/img/logo-100.png" alt="Logo" />
+  <div class="level">
+    <div class="level-left">
+      <img class="has-contents-below" src="/assets/img/logo-100.png" alt="Logo" />
+    </div>
+
+    <div class="level-right">
+      <div class="has-text-right">
+        <p>Generated:</p>
+        <p>{{ date }}</p>
+      </div>
+    </div>
+  </div>
 
   <h1 class="title">{{ result.category.name }}</h1>
 

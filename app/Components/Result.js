@@ -68,6 +68,22 @@ class Result {
     this._candidates = result
   }
 
+  sliceTop (n) {
+    const result = this._candidates.slice(0, n)
+
+    if (this.subcategories.length) {
+      const slicedSubs = this._subcategories.map(sub => {
+        sub.relations.candidates = sub.relations.candidates.slice(0, n)
+
+        return sub
+      })
+
+      this._subcategories = slicedSubs
+    }
+
+    this._candidates = result
+  }
+
   getTop5Ids (candidates) {
     return candidates.slice(0, 5).map(c => c.id)
   }

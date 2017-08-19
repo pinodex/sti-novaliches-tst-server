@@ -70,11 +70,11 @@ export default {
       })
   },
 
-  printResult (winner = false) {
+  print (type) {
     let url = `${location.href}/print`
 
-    if (winner) {
-      url += '?winner=1'
+    if (type) {
+      url += `?type=${type}`
     }
 
     let printWindow = window.open(url, 'Print', `height=${screen.height},width=${screen.width},fullscreen=yes`)

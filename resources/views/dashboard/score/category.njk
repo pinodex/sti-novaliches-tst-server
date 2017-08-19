@@ -87,27 +87,20 @@ set tabs = [
       </div>
 
       <div class="level-right">
-        <div class="field is-grouped">
-          <p class="control">
-            <button class="button" @click="printResult(true)">
-              <span class="icon is-small">
-                <i class="fa fa-print"></i>
-              </span>
-
-              <span>Print Winner</span>
-            </button>
-          </p>
-
-          <p class="control">
-            <button class="button" @click="printResult()">
+        <b-dropdown position="is-bottom-left" hoverable>
+          <button class="button" slot="trigger">
               <span class="icon is-small">
                 <i class="fa fa-print"></i>
               </span>
 
               <span>Print</span>
-            </button>
-          </p>
-        </div>
+              <b-icon icon="angle-down"></b-icon>
+          </button>
+
+          <b-dropdown-item @click="print('winner')">Print Winner</b-dropdown-item>
+          <b-dropdown-item @click="print('top-5')">Print Top 5</b-dropdown-item>
+          <b-dropdown-item @click="print()">Print All</b-dropdown-item>
+      </b-dropdown>
       </div>
     </div>
 
