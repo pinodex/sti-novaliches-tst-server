@@ -30,7 +30,8 @@ const globalMiddleware = [
 */
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
-  judge_token: 'App/Http/Middleware/JudgeToken'
+  judge_token: 'App/Http/Middleware/JudgeToken',
+  client_token: 'App/Http/Middleware/ClientToken'
 }
 
 /*

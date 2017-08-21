@@ -24,28 +24,28 @@ class DataController {
     this.socket = socket
 
     if (Event.hasListeners('send_categories')) {
-      return
+      Event.when('send_categories', () => {
+        co(function * () {
+          const categories = yield Aggregator.getCategories()
+
+          return categories
+        }).then(categories => {
+          this.socket.toEveryone().emit('categories', categories)
+        })
+      })
     }
 
-    Event.when('send_categories', () => {
-      co(function * () {
-        const categories = yield Aggregator.getCategories()
+    if (Event.hasListeners('send_candidates')) {
+      Event.when('send_candidates', () => {
+        co(function * () {
+          const candidates = yield Aggregator.getCandidates()
 
-        return categories
-      }).then(categories => {
-        this.socket.toEveryone().emit('categories', categories)
+          return candidates
+        }).then(candidates => {
+          this.socket.toEveryone().emit('candidates', candidates)
+        })
       })
-    })
-
-    Event.when('send_candidates', () => {
-      co(function * () {
-        const candidates = yield Aggregator.getCandidates()
-
-        return candidates
-      }).then(candidates => {
-        this.socket.toEveryone().emit('candidates', candidates)
-      })
-    })
+    }
   }
 
   onRequest (name) {

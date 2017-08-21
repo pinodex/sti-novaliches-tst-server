@@ -13,7 +13,8 @@ const Env = use('Env')
 |
 */
 const globalMiddleware = [
-  'Adonis/Middleware/AuthInit'
+  'Adonis/Middleware/AuthInit',
+  'App/Http/Middleware/ClientToken'
 ]
 
 /*

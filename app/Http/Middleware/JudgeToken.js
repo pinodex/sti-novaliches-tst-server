@@ -7,8 +7,9 @@
  * Copyright 2017, Raphael Marco <raphaelmarco@outlook.com>
  */
 
-const Judge = use('App/Model/Judge'),
-      authorization = require('auth-header')
+const authorization = require('auth-header'),
+      Judge = use('App/Model/Judge'),
+      Env = use('Env')
 
 class JudgeToken {
 
@@ -17,7 +18,7 @@ class JudgeToken {
 
     if (authorizationHeader == null) {
       return response.status(401).send({
-        error: { message: 'Cannot authorize client' }
+        error: { message: 'Cannot authorize user' }
       })
     }
 
@@ -32,7 +33,7 @@ class JudgeToken {
     const user = yield Judge.checkToken(auth.token)
 
     if (!user) {
-      return response.status(400).send({
+      return response.status(401).send({
         error: { message: 'Invalid authorization token' }
       })
     }

@@ -82,11 +82,15 @@ class Judge extends Lucid {
     return judge
   }
 
-  * generateToken() {
+  * generateToken(save = false) {
     const buffer = crypto.randomBytes(64),
           token = buffer.toString('hex')
 
     this.token = token
+
+    if (save) {
+      yield this.save()
+    }
 
     return token
   }

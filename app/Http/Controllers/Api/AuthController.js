@@ -29,8 +29,7 @@ class AuthController {
       })
     }
 
-    yield user.generateToken()
-    yield user.save()
+    yield user.generateToken(true)
 
     response.send({ user })
   }

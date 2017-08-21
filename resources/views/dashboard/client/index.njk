@@ -1,0 +1,56 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Clients' %}
+{% set active_menu = 'clients' %}
+
+{% set error = old('error') %}
+
+{% block subcontent %}
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <h1 class="title">Clients</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="main">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+          <th>Last Activity</th>
+          <th class="is-fit">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for client in result.toJSON() %}
+          <tr>
+            <td>{{ client.ip_address }}</td>
+            <td>{{ client.last_activity | date('Y-MM-DD hh:mm:ss A') }}</td>
+            <td>
+              <div class="field is-grouped">
+                <p class="control">
+                  <a href="{{ route('dashboard.clients.deauthorize', { id: client.id }) }}" class="button is-danger is-small" title="Deauthorize">
+                    <span class="icon is-small">
+                      <i class="fa fa-times"></i>
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="3">No results found</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

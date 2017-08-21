@@ -1,0 +1,62 @@
+{% extends '../../layouts/dashboard' %}
+
+{% set page_title = 'Switch account' %}
+{% set active_menu = 'clients' %}
+
+{% set formUrl = url('dashboard.clients.deauthorize', { id: model.id }) %}
+
+{% set error = old('error') %}
+
+{% block subcontent %}
+  <section class="hero is-light has-contents-below">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <h1 class="title">Swich account</h1>
+        <h2 class="subtitle">Client {{ model.ip_address }}</h2>
+      </div>
+    </div>
+  </section>
+
+  <div class="main">
+    <div class="columns">
+      <div class="column is-4 is-offset-4">
+        <article class="message is-danger">
+          <div class="message-header">
+            <p>Deauthorize client</p>
+          </div>
+
+          <div class="message-body">
+            <form class="form" action="{{ formUrl }}" method="post">
+              {{ csrfField }}
+
+              <div class="has-contents-below">
+                <p>Are you sure you want to deauthorize this client?</p>
+                <p><strong>{{ model.ip_address }}</strong></p>
+              </div>
+
+              <div class="is-clearfix">
+                <div class="field is-grouped is-pulled-right">
+                  <p class="control">
+                    <a href="{{ route('dashboard.clients') }}" class="button is-light">
+                      <span>Cancel</span>
+                    </a>
+                  </p>
+
+                  <p class="control">
+                    <button class="button is-danger">
+                      <span class="icon is-small">
+                        <i class="fa fa-times"></i>
+                      </span>
+
+                      <span>Deauthorize</span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+{% endblock %}

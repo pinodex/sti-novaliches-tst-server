@@ -66,6 +66,23 @@ Route.group('dashboard.accounts', () => {
 .middleware('auth:account')
 
 /**
+ * Clients
+ */
+Route.group('dashboard.clients', () => {
+
+  Route
+    .get('/', 'Dashboard/ClientController.index')
+    .as('dashboard.clients')
+
+  Route
+    .route(':id/deauthorize', ['GET', 'POST'], 'Dashboard/ClientController.deauthorize')
+    .as('dashboard.clients.deauthorize')
+
+})
+.prefix('dashboard/clients')
+.middleware('auth:account')
+
+/**
  * Categories
  */
 Route.group('dashboard.categories', () => {
@@ -338,13 +355,10 @@ Route.group('dashboard.program', () => {
  */
 Route.group('api', () => {
 
-  Route.get('/score', 'Api/ScoreController.get')
-
-  Route.post('/score', 'Api/ScoreController.post')
+  Route.post('/handshake', 'Api/MainController.handshake')
 
 })
 .prefix('api')
-.middleware('judge_token')
 
 Route.group('api.auth', () => {
 
@@ -358,3 +372,14 @@ Route.group('api.auth', () => {
 
 })
 .prefix('api/auth')
+.middleware('client_token')
+
+Route.group('api.data', () => {
+
+  Route.get('/score', 'Api/ScoreController.get')
+
+  Route.post('/score', 'Api/ScoreController.post')
+
+})
+.prefix('api/data')
+.middleware(['client_token', 'judge_token'])

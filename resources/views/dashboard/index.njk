@@ -16,7 +16,7 @@
 
   <div class="container is-fluid">
     <div class="columns">
-      <div class="column">
+      <div class="column is-4 is-offset-4">
         <div class="box">
           <form @submit.prevent="updateCurrentProgram">
             <div class="field">
@@ -49,9 +49,7 @@
             </p>
           </form>
         </div>
-      </div>
 
-      <div class="column">
         <div class="box">
           <p class="control has-contents-below">
             <button class="button is-fullwidth" type="submit"
@@ -82,8 +80,6 @@
           </p>
         </div>
       </div>
-
-      <div class="column"></div>
     </div>
   </div>
 {% endblock %}

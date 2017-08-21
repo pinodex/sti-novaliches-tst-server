@@ -46,12 +46,14 @@ Http.handleError = function * (error, request, response) {
  * starting http server.
  */
 Http.onStart = function () {
-  const Helpers = use('Helpers')
-  const Config = use('Config')
-  const Route = use('Route')
-  const View = use('View')
+  const Helpers = use('Helpers'),
+        Config = use('Config'),
+        Route = use('Route'),
+        View = use('View')
 
-  const qs = require('query-string')
+  const qs = require('query-string'),
+        moment = require('moment')
+
 
   View.global('url', (route, data) => {
     data = data || {}
@@ -103,7 +105,11 @@ Http.onStart = function () {
     return result
   })
 
-  View.filter('fixed', function(num, length) {
+  View.filter('fixed', (num, length) => {
     return num.toFixed(length || 2);
+  })
+
+  View.filter('date', (date, format) => {
+    return moment(date).format(format)
   })
 }

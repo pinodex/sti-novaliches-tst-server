@@ -19,6 +19,13 @@ module.exports = [
       },
 
       {
+        icon: 'desktop',
+        identifier: 'clients',
+        route: 'dashboard.clients',
+        name: 'Clients'
+      },
+
+      {
         icon: 'folder',
         identifier: 'categories',
         route: 'dashboard.categories',
