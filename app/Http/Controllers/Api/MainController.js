@@ -14,7 +14,9 @@ class MainController {
    * API handshake route
    */
   * handshake (request, response) {
-    const client = yield Client.register(request.ip())
+    const ip = request.header('x-forwarded-for') || request.ip()
+
+    const client = yield Client.register(ip)
 
     const token = yield client.generateToken()
 
